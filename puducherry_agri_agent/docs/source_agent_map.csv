@@ -1,0 +1,5 @@
+team_id,source_name,url,period_of_info,modality,description,limitations
+35,Department of Agriculture Puducherry - Crop Schemes,https://agri.py.gov.in/schemes.html,2024-2026,Static Web HTML,Crop subsidies and financial assistance details,Static HTML table formatting; requires HTML parser
+35,Department of Agriculture Puducherry - Weekly Report PDF,https://agri.py.gov.in/sites/default/files/reports/Wrp_26-11-2018.pdf,2018,Digital PDF,Weekly agricultural status report,PDF file format; requires PyMuPDF parser
+35,AGMARKNET - Crop Season Wise Price & Arrival,https://agmarknet.gov.in/home,2025-2026,Dynamic Web HTML,MSP Kharif/Rabi prices and arrival data,Requires explicit District/Year filter selection and browser automation
+35,Department of Agriculture Puducherry - Market Prices,https://agri.py.gov.in/mktpric.html,2024-2026,Static Web HTML,Historical/retail market prices,Static HTML table structure; updated periodically

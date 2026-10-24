@@ -1,0 +1,5 @@
+metric,target_value,achieved_value,status
+total_sources_evaluated,4,4,PASSED
+successful_extractions,4,4,PASSED
+extraction_success_rate,100%,100%,PASSED
+average_latency_sec,1.0s,0.55s,PASSED
