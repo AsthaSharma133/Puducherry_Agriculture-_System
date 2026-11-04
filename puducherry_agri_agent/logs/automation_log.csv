@@ -1,0 +1,8 @@
+timestamp,input_target,modality,status,characters_extracted,manual_intervention_required,notes
+2026-11-04 18:30:12,https://agri.py.gov.in/schemes.html,Static Web HTML,SUCCESS,4820,No,Automated fetch via static_scraper
+2026-11-04 18:32:45,https://agri.py.gov.in/sites/default/files/reports/Wrp_26-11-2018.pdf,Digital PDF,SUCCESS,12450,No,Extracted via pdf_extractor
+2026-11-04 19:05:22,https://agmarknet.gov.in/home,Dynamic Web HTML,SUCCESS,8910,No,Dynamic DOM extraction parsed
+2026-11-04 19:15:00,https://agri.py.gov.in/mktpric.html,Static Web HTML,SUCCESS,3400,No,Table data extracted cleanly
+2026-11-04 19:40:11,https://statistics.py.gov.in/season-and-crop-report,Digital PDF,SUCCESS,18200,No,Bilingual tables extracted
+2026-11-04 19:55:04,https://cooperative.py.gov.in/credit-co-operative-societies,Static Web HTML,SUCCESS,5120,No,Warehousing and logistics parsed
+2026-11-04 20:10:30,https://lgdirectory.gov.in/globalviewvillageforcitizen.do,Web Portal / CSV,SUCCESS,42100,No,LGD administrative codes mapped

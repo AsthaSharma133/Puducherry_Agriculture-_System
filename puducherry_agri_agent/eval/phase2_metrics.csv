@@ -1,5 +1,14 @@
-metric,target_value,achieved_value,status
-total_sources_evaluated,4,4,PASSED
-successful_extractions,4,4,PASSED
-extraction_success_rate,100%,100%,PASSED
-average_latency_sec,1.0s,0.55s,PASSED
+metric_id,scope,numerator,denominator,value,n_cases,evaluator_or_script,notes
+M1,end_to_end,7.0,7.0,1.000,7.0,docs/source_agent_map.csv,All 7 Puducherry sources mapped
+M2,end_to_end,5.0,7.0,0.714,7.0,docs/source_agent_map.csv,5 of 7 sources implemented
+M3,mandi_price_agent,270.0,300.0,0.900,10.0,eval/run_eval.py,Exact commodity and price match
+M3,scheme_agent,140.0,150.0,0.933,10.0,eval/run_eval.py,Subsidy amount & eligibility F1
+M3,des_crop_report_agent,180.0,220.0,0.818,10.0,eval/run_eval.py,Bilingual Tamil/English PDF tables
+M4,end_to_end,28.0,30.0,0.933,30.0,live_evaluator_check,Direct page/table URL provenance
+M6,mandi_price_agent,28.0,30.0,0.933,10.0,AgentEvals,Correct Playwright tool selection
+M11,end_to_end,9.0,10.0,0.900,10.0,LangSmith_traces,Includes 1 live fault injection handled
+M12,end_to_end,27.0,30.0,0.900,30.0,logs/automation_log.csv,Completed with zero human intervention
+M14,end_to_end,150.0,150.0,1.000,150.0,SQL_check,All mandatory fields and LGD codes present
+M15,end_to_end,147.0,150.0,0.980,150.0,SQL_check,Passed unit and range validation checks
+M16,end_to_end,0.0,150.0,0.000,150.0,SQL_GROUP_BY,Zero natural key duplicate rows
+M18,des_crop_report_agent,,,0.085,10.0,eval/adapter_comparison.csv,Base model F1 0.74 vs QLoRA F1 0.825

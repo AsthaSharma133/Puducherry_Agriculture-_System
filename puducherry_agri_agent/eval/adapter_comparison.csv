@@ -1,0 +1,3 @@
+model_variant,extraction_accuracy_f1,latency_seconds,gpu_memory_gb,notes
+Base Model (Un-tuned),0.740,3.85,14.2,Baseline LLM without field adaptation
+QLoRA Adapter (Fine-tuned),0.825,3.91,14.5,Fine-tuned on Puducherry DES PDF schemas

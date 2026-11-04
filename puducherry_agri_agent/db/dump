@@ -1,0 +1,44 @@
+-- Puducherry Agriculture Database Dump (SQLite Compatible)
+
+BEGIN TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS lgd_administrative_registry (
+    lgd_village_code INTEGER PRIMARY KEY,
+    village_name VARCHAR(150) NOT NULL,
+    lgd_subdistrict_code INTEGER NOT NULL,
+    subdistrict_name VARCHAR(100) NOT NULL,
+    lgd_district_code INTEGER NOT NULL,
+    district_name VARCHAR(100) NOT NULL,
+    state_code INTEGER DEFAULT 34,
+    state_name VARCHAR(50) DEFAULT 'Puducherry',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS schemes_and_incentives (
+    scheme_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    scheme_name VARCHAR(255) NOT NULL,
+    target_crop VARCHAR(100),
+    subsidy_amount_per_acre NUMERIC(10, 2),
+    eligibility_criteria TEXT,
+    regional_scope VARCHAR(100),
+    source_url TEXT,
+    ingested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS weekly_crop_advisories (
+    advisory_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_date DATE NOT NULL,
+    district_name VARCHAR(100) NOT NULL,
+    rainfall_mm NUMERIC(6, 2),
+    crop_status_summary TEXT,
+    pest_warning TEXT,
+    advisory_text TEXT
+);
+
+INSERT INTO lgd_administrative_registry (lgd_village_code, village_name, lgd_subdistrict_code, subdistrict_name, lgd_district_code, district_name) 
+VALUES (644675, 'Puducherry Central', 635, 'Puducherry Taluk', 613, 'Puducherry');
+
+INSERT INTO schemes_and_incentives (scheme_name, target_crop, subsidy_amount_per_acre, regional_scope) 
+VALUES ('Paddy Crop Subsidy Scheme', 'Paddy', 5000.00, 'UT Wide');
+
+COMMIT;
