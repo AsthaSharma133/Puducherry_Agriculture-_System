@@ -5,4 +5,7 @@ timestamp,input_target,modality,status,characters_extracted,manual_intervention_
 2026-11-04 19:15:00,https://agri.py.gov.in/mktpric.html,Static Web HTML,SUCCESS,3400,No,Table data extracted cleanly
 2026-11-04 19:40:11,https://statistics.py.gov.in/season-and-crop-report,Digital PDF,SUCCESS,18200,No,Bilingual tables extracted
 2026-11-04 19:55:04,https://cooperative.py.gov.in/credit-co-operative-societies,Static Web HTML,SUCCESS,5120,No,Warehousing and logistics parsed
-2026-11-04 20:10:30,https://lgdirectory.gov.in/globalviewvillageforcitizen.do,Web Portal / CSV,SUCCESS,42100,No,LGD administrative codes mapped
+2026-11-04 20:10:30,https://lgdirectory.gov.in/globalviewvillageforcitizen.do,Web Portal / CSV,SUCCESS,42100,No,LGD administrative codes mapped2026-11-05 12:30:27,Data/raw/districtofSpecificState2026_11_04_23_30_44_613.xls,Excel/Table Document,SUCCESS,12341,No,Processed via demo.py
+2026-11-05 12:44:39,Data/raw/districtofSpecificState2026_11_04_23_30_44_613.xls,Excel/Table Document,SUCCESS,12341,No,Processed via demo.py
+2026-11-05 14:27:23,Data/raw/subDistrictOfSpecificState2026_11_04_23_30_44_613.xls,Excel/Table Document,FAILED,0,No,Extraction Error
+2026-11-05 14:33:59,Data/raw/subDistrictofSpecificState2026_11_04_23_30_44_635,Digital PDF,SUCCESS,157,No,Processed via demo.py
