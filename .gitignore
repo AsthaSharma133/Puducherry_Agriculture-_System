@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+
+# Large raw corpus (re-download with: python puducherry_agri_agent/scripts/fetch_corpus.py;
+# full corpus is shared via Google Drive). Small samples live in puducherry_agri_agent/samples/.
+puducherry_agri_agent/data/raw/s3/*.pdf
+puducherry_agri_agent/data/raw/s8/*.pdf
+*.part
+
+# Derived caches (rebuilt by the pipeline)
+puducherry_agri_agent/data/interim/

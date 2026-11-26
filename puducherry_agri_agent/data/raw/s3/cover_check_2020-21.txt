@@ -1,0 +1,11 @@
+S3 cover check - data/raw/s3/S3_SCR_2020-21.pdf (listed as 2020-21)
+URL: https://statistics.py.gov.in/sites/default/files/season-crop-report-2021-22.pdf
+Year strings on cover page (p.1): ['2020-21']
+Year strings on pp.1-4 (count): {'2020-21': 3}
+Byte-identical to other S3 files: none
+--- cover page text (first 1500 chars) ---
+GOVERNMENT OF PUDUCHERRY
+SEASON AND CROP REPORT
+2020-21
+DIRECTORATE OF ECONOMICS AND STATISTICS
+PUDUCHERRY
