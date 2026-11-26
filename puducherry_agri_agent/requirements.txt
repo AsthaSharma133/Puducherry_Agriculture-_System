@@ -1,11 +1,23 @@
-# Core pipeline
-requests>=2.31
-beautifulsoup4>=4.12
-pymupdf>=1.24
-numpy>=1.26
-pillow>=10.0
-pytesseract>=0.3.10      # also needs the Tesseract binary: apt install tesseract-ocr / choco install tesseract
+# Team 35 Puducherry agriculture system - Python 3.11+ (tested on 3.13)
+# Install:  pip install -r requirements.txt
+# OCR also needs the Tesseract program: Linux `sudo apt install tesseract-ocr`,
+# Windows: UB Mannheim installer, then add it to PATH. Without it, 2021-22 pages are skipped.
 
-# Optional
-langsmith>=0.1           # tracing, only used when LANGSMITH_API_KEY is set
-python-dotenv>=1.0       # .env loading (a built-in fallback parser is used if absent)
+# Pipeline (agents A1/A2/A3, normalizer, orchestrator)
+requests>=2.31          # downloads (scripts/fetch_corpus.py, demo.py)
+beautifulsoup4>=4.12    # HTML tables: S2 prices, S5 schemes, S6 co-op societies
+pymupdf>=1.24           # PDF text layer and page rendering (S3, S8)
+numpy>=1.26             # erase table ruling lines before OCR
+pillow>=10.0            # image hand-off to Tesseract
+pytesseract>=0.3.10     # OCR for pages without a text layer
+
+# Figures and tests
+matplotlib>=3.8         # scripts/generate_figures.py, scripts/plot_soi_map.py
+pytest>=8.0             # python -m pytest tests/ -q
+
+# Optional - the project runs fully offline without these
+# geopandas>=0.14       # only for scripts/plot_soi_map.py once the SOI shapefile is downloaded
+# langsmith>=0.1        # tracing, used only when LANGSMITH_API_KEY is set
+# anthropic>=0.40       # query-engine LLM fallback, used only when ANTHROPIC_API_KEY is set
+# python-dotenv>=1.0    # .env loading (a built-in fallback parser is used if absent)
+# The QLoRA notebook installs its own GPU packages (transformers, peft, bitsandbytes) in Colab.

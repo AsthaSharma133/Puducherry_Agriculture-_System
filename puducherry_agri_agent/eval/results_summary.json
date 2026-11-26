@@ -50,7 +50,7 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 5,
-      "avg_latency_s_per_document": 0.453
+      "avg_latency_s_per_document": 0.429
     },
     {
       "agent": "A3",
@@ -80,7 +80,7 @@
       "provenance_accuracy": 1.0,
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
-      "avg_latency_s_per_document": 0.161
+      "avg_latency_s_per_document": 0.153
     }
   ],
   "automation": {
@@ -95,12 +95,12 @@
   "retries": {
     "eval_run": 0,
     "latest_pipeline_run": {
-      "run_id": "20261126T201509Z-c92833",
+      "run_id": "20261126T202201Z-21063a",
       "retries": 0
     }
   },
   "latency_s_per_document": {
-    "S3": 0.453,
+    "S3": 0.429,
     "S6": 0.054,
     "S2": 0.002,
     "S5": 0.001

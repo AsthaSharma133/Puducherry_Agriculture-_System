@@ -377,6 +377,10 @@ def build_summary(cases, case_results, outputs, by_agent):
 def main():
     """Run the evaluation end to end and print a short report."""
     load_dotenv()
+    if not list((PROJECT / "data" / "raw" / "s3").glob("S3_SCR_*.pdf")):
+        print("The S3 PDFs are not in data/raw/s3/ (they are git-ignored, 30 MB).\n"
+              "Download them first:  python scripts/fetch_corpus.py   then run this again.")
+        return 1
     cases = json.loads((EVAL_DIR / "eval_set.json").read_text(encoding="utf-8"))["cases"]
     print(f"Evaluating {len(cases)} cases")
     outputs = run_all_sources()

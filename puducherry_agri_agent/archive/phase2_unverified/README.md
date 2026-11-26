@@ -11,3 +11,7 @@ in this repository and must not be quoted in the Phase 3 report, poster or prese
 
 Phase 3 replacements: `pipeline_runs` and `extraction_issues` tables in `db/puducherry_agri.db`
 (written by `python -m src.orchestrator`), and real evaluation results produced in Sprint 3.
+| `source_agent_map.csv` | Phase 2 source list; claims "warehouse locations, storage capacities" for S6, which the real page does not contain (it lists credit co-op societies only). Replaced by `data/manifest.csv`. |
+
+`archive/phase2_code/` holds the Phase 2 `tools/` scrapers and agent note. Nothing in Phase 3 imports them;
+they are kept only so the Phase 2 history stays readable. The live code is `run.py`, `src/`, `app/`, `eval/`.
