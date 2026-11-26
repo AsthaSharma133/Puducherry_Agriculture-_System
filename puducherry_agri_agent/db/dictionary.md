@@ -1,6 +1,6 @@
 # Data Dictionary: Puducherry Agricultural Intelligence System (Team 35, Phase 3)
 
-Database: `db/puducherry_agri.db` (SQLite 3). Schema: `db/schema.sql`. Full SQL dump: `db/dump`.
+Database: `db/puducherry_agri.db` (SQLite 3). Schema: `db/schema.sql`. Full SQL dump: `db/dump/puducherry_agri_dump.sql`.
 Built by `python -m src.orchestrator` (see `README.md`).
 
 ## Provenance columns (on every data table)

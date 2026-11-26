@@ -1,0 +1,160 @@
+{
+  "eval_set": "eval/eval_set.json",
+  "n_cases": 28,
+  "n_real_cases": 22,
+  "n_synthetic_cases": 6,
+  "train_test_overlap": {
+    "train_keys": 330,
+    "test_keys": 80,
+    "overlap": 0,
+    "train_years": [
+      "2020-21",
+      "2022-23",
+      "2023-24"
+    ],
+    "test_years": [
+      "2021-22",
+      "2024-25"
+    ]
+  },
+  "by_agent": [
+    {
+      "agent": "A1",
+      "n_cases": 4,
+      "n_fields": 8,
+      "tp": 8,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0,
+      "provenance_accuracy": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "task_completion_rate": 1.0,
+      "documents": 1,
+      "avg_latency_s_per_document": 0.003
+    },
+    {
+      "agent": "A2",
+      "n_cases": 16,
+      "n_fields": 80,
+      "tp": 80,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0,
+      "provenance_accuracy": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "task_completion_rate": 1.0,
+      "documents": 5,
+      "avg_latency_s_per_document": 0.543
+    },
+    {
+      "agent": "A3",
+      "n_cases": 8,
+      "n_fields": 48,
+      "tp": 48,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0,
+      "provenance_accuracy": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "task_completion_rate": 1.0,
+      "documents": 2,
+      "avg_latency_s_per_document": 0.039
+    },
+    {
+      "agent": "MACRO",
+      "n_cases": 28,
+      "n_fields": 136,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "exact_match_rate": 1.0,
+      "provenance_accuracy": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "task_completion_rate": 1.0,
+      "avg_latency_s_per_document": 0.195
+    }
+  ],
+  "automation": {
+    "eval_inputs_attempted": 8,
+    "eval_inputs_fully_automatic": 8,
+    "automation_rate_eval_inputs": 1.0,
+    "corpus_fetch_attempted": 21,
+    "corpus_fetch_ok": 6,
+    "automation_rate_corpus_fetch": 0.2857,
+    "note": "corpus fetch failures are hosts that reset connections from the build machine (S2, S5, S8); they work from a network in India"
+  },
+  "retries": {
+    "eval_run": 0,
+    "latest_pipeline_run": {
+      "run_id": "20261126T201145Z-3e2338",
+      "retries": 0
+    }
+  },
+  "latency_s_per_document": {
+    "S3": 0.543,
+    "S6": 0.076,
+    "S2": 0.003,
+    "S5": 0.002
+  },
+  "latency_note": "S3 OCR results are cached in data/interim/ocr; a cold first run OCRs 54 pages (~2 minutes)",
+  "error_counts": {
+    "eval_wrong_cases": {
+      "OCR": 0,
+      "layout": 0,
+      "unit": 0,
+      "location_name": 0,
+      "hallucination": 0,
+      "network_geo_block": 0
+    },
+    "issues_logged_during_eval": {
+      "OCR": 43,
+      "layout": 0,
+      "unit": 1,
+      "location_name": 0
+    },
+    "network_geo_block_fetch_failures": 15
+  },
+  "failure_snippets": [
+    {
+      "id": "B2",
+      "before_error": "OCR rows came out as `PUDUCHERRY \\",
+      "cause": "__3365\\",
+      "after_fix": "_s067\\"
+    },
+    {
+      "id": "B3",
+      "before_error": "`ocr_column_count_mismatch: IV-A KARAIKAL: 9 numbers for 16 columns in OCR line 'KARAIKAL ) 0) 0) 0 0) 0) 5 5 0 ...'; row skipped` (7 rows on 2021-22 p46)",
+      "cause": "Tesseract reads the digit 0 as `0)`, `()` or `)`",
+      "after_fix": "Fixed: those tokens map to `0` (`ocr_char_fix`, INFO, 43 cases). All repaired values pass the STATE = sum of regions check. Rows that still mismatch are skipped and flagged `needs_llm_review`."
+    }
+  ],
+  "evaluators_run": [
+    "field_prf_local",
+    "provenance_local",
+    "tool_selection_local",
+    "overlap_assert_local"
+  ],
+  "evaluators_skipped": [
+    {
+      "name": "langsmith_upload",
+      "reason": "LANGSMITH_API_KEY not set"
+    },
+    {
+      "name": "agentevals_trajectory_match",
+      "reason": "agentevals not installed"
+    },
+    {
+      "name": "llm_as_judge",
+      "reason": "not used: every field has an exact numeric/text answer"
+    }
+  ]
+}

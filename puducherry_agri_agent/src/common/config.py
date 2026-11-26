@@ -16,7 +16,7 @@ MANIFEST = DATA / "manifest.csv"
 ALIASES = DATA / "aliases.csv"
 DB_PATH = PROJECT / "db" / "puducherry_agri.db"
 SCHEMA = PROJECT / "db" / "schema.sql"
-DUMP = PROJECT / "db" / "dump"
+DUMP = PROJECT / "db" / "dump" / "puducherry_agri_dump.sql"
 
 
 def rel(path: Path | str) -> str:

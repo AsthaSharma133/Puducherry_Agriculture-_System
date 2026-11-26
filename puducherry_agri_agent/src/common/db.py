@@ -72,7 +72,8 @@ def insert_issues(conn: sqlite3.Connection, issues: Iterable[dict]) -> int:
 
 
 def dump_sql(conn: sqlite3.Connection, path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
-        f.write("-- Puducherry Agriculture DB dump (SQLite). Regenerate: python -m src.orchestrator --dump\n")
+        f.write("-- Puducherry Agriculture DB dump (SQLite). Regenerate: python -m src.orchestrator --dump-only\n")
         for line in conn.iterdump():
             f.write(line + "\n")

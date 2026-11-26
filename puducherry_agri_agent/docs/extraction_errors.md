@@ -1,4 +1,4 @@
-# Real extraction errors (Sprint 2, 2026-11-26) - for the User Manual
+# Real extraction errors (Sprints 2-3, 2026-11-26) - for the User Manual (Section 7)
 
 Every error below was hit while building and running the pipeline on the real corpus.
 Messages are copied from the pipeline output or `extraction_issues`. "Status" says how it is
@@ -47,3 +47,11 @@ GROUP BY 1, 2, 3;
 | D1 | `ModuleNotFoundError: No module named 'fitz'` | `pip install pymupdf` (see `requirements.txt`) |
 | D2 | `tesseract binary not found` | Install Tesseract (`apt install tesseract-ocr`; Windows: UB Mannheim installer, add to PATH). Without it, A2 logs `no_text_layer_ocr_unavailable` and 2021-22 is skipped (PARTIAL). |
 | D3 | LGD `.xls` files are SpreadsheetML (XML), not binary Excel | Parsed with `xml.etree`; no `xlrd` needed. |
+
+## E. Found by the Phase 3 evaluation (eval/run_eval.py, Sprint 3)
+
+| # | Error (as measured) | Cause | Status |
+|---|---|---|---|
+| E1 | `WRONG A3-01: reg_no: expected '14' got 'Pondy'` - all 6 S6 cases had the region text in `coop_societies.reg_no` (A3 F1 0.875 on 48 fields; 61/61 DB rows affected) | `parse_s6` picked the first header containing `"reg"`, and `"region"` contains `"reg"`, so the Region column was read twice | Fixed: `_col(header, "reg", avoid="region")` in `src/agents/web_entities/agent.py`. After the fix A3 F1 = 1.000 and `coop_societies` has 61 distinct registration numbers. |
+| E2 | 2022-23 report p32 gives 2021-22 Mango area **3 ha**, but the region table (2021-22 p45) prints **165 ha** | p32 is table "C. AREA OF CROPS IRRIGATED", not total area. Using it as ground truth would have marked correct extractions as wrong | Ground truth uses p34-35 "D. AREA UNDER ALL CROPS" (Mango 165) and p36 "E. AVERAGE YIELD ... AND TOTAL OUTTURN". The cited page is stored per case and re-checked by `eval/verify_ground_truth.py`. |
+| E3 | Gross cropped area 2021-22: region table total **27993** ha vs 5-year summary **27994** ha | Two printed tables in the official reports disagree by 1 (rounding in the source) | Not an extraction error: the pipeline stores the value printed on the page it read; the provenance column says which page. |

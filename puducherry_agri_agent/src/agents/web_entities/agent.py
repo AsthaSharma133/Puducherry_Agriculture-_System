@@ -41,6 +41,15 @@ def _section_heading(table) -> str:
     return h.get_text(" ", strip=True) if h else ""
 
 
+def _col(header: list[str], word: str, avoid: str | None = None) -> int:
+    """Index of the first header cell containing `word` (and not containing `avoid`).
+    Bug fixed 2026-11-26: 'reg' also matched 'region', so reg_no got the region text."""
+    for i, h in enumerate(header):
+        if word in h and not (avoid and avoid in h):
+            return i
+    raise ValueError(f"no header cell with {word!r} in {header}")
+
+
 def parse_s6(path, prov) -> AgentResult:
     soup = BeautifulSoup(path.read_text(encoding="utf-8", errors="replace"), "html.parser")
     resolver = AliasResolver()
@@ -54,7 +63,8 @@ def parse_s6(path, prov) -> AgentResult:
         if not any("reg" in h for h in header):
             issues.append(prov.issue("WARNING", "unexpected_table", f"table {t_i + 1}: header {grid[:1]}", src))
             continue
-        ix = {k: next(i for i, h in enumerate(header) if k in h) for k in ("region", "type", "reg", "name")}
+        ix = {"region": _col(header, "region"), "type": _col(header, "type"),
+              "reg": _col(header, "reg", avoid="region"), "name": _col(header, "name")}
         for r_i, r in enumerate(grid[1:], start=2):
             if len(r) < len(header):
                 continue
