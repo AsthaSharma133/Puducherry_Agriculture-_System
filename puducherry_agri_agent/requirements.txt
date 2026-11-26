@@ -1,0 +1,11 @@
+# Core pipeline
+requests>=2.31
+beautifulsoup4>=4.12
+pymupdf>=1.24
+numpy>=1.26
+pillow>=10.0
+pytesseract>=0.3.10      # also needs the Tesseract binary: apt install tesseract-ocr / choco install tesseract
+
+# Optional
+langsmith>=0.1           # tracing, only used when LANGSMITH_API_KEY is set
+python-dotenv>=1.0       # .env loading (a built-in fallback parser is used if absent)
