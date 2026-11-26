@@ -15,3 +15,7 @@ puducherry_agri_agent/data/raw/s8/*.pdf
 
 # Derived caches (rebuilt by the pipeline)
 puducherry_agri_agent/data/interim/
+
+# Survey of India shapefiles (manual download, see scripts/plot_soi_map.py)
+puducherry_agri_agent/data/raw/soi/*
+!puducherry_agri_agent/data/raw/soi/.gitkeep

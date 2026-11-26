@@ -33,7 +33,7 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 1,
-      "avg_latency_s_per_document": 0.003
+      "avg_latency_s_per_document": 0.002
     },
     {
       "agent": "A2",
@@ -50,7 +50,7 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 5,
-      "avg_latency_s_per_document": 0.543
+      "avg_latency_s_per_document": 0.453
     },
     {
       "agent": "A3",
@@ -67,7 +67,7 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 2,
-      "avg_latency_s_per_document": 0.039
+      "avg_latency_s_per_document": 0.028
     },
     {
       "agent": "MACRO",
@@ -80,7 +80,7 @@
       "provenance_accuracy": 1.0,
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
-      "avg_latency_s_per_document": 0.195
+      "avg_latency_s_per_document": 0.161
     }
   ],
   "automation": {
@@ -95,15 +95,15 @@
   "retries": {
     "eval_run": 0,
     "latest_pipeline_run": {
-      "run_id": "20261126T201145Z-3e2338",
+      "run_id": "20261126T201509Z-c92833",
       "retries": 0
     }
   },
   "latency_s_per_document": {
-    "S3": 0.543,
-    "S6": 0.076,
-    "S2": 0.003,
-    "S5": 0.002
+    "S3": 0.453,
+    "S6": 0.054,
+    "S2": 0.002,
+    "S5": 0.001
   },
   "latency_note": "S3 OCR results are cached in data/interim/ocr; a cold first run OCRs 54 pages (~2 minutes)",
   "error_counts": {
