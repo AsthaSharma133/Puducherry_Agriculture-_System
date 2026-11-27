@@ -148,8 +148,12 @@ offline and gives the same results.
 * F1 = 1.000 is for the deterministic parsers on this small set. S8 is not covered: its host
   (`agritech.tnau.ac.in`) was unreachable even from India (`HOST_UNREACHABLE`). Automation: 8/8
   evaluation inputs fully automatic; 8/21 corpus downloads succeed (the 13 failures are all S8).
-* QLoRA (RQ2) base vs adapter F1 is produced by the Colab notebook (needs a GPU) and saved to
-  `eval/adapter_comparison.csv`; no adapter numbers are claimed before that run.
+* QLoRA (RQ2): on the 16 held-out S3 columns (80 fields), field-level F1 goes from 0.0247 for the
+  base Qwen2.5-1.5B-Instruct to 0.6625 with the 4-bit QLoRA adapter (+0.6378; OCR pages 0.0328 →
+  0.6167, text-layer pages 0.0 → 0.8). Produced by the Colab notebook on a T4 and saved to
+  `eval/adapter_comparison.csv` and `eval/qlora_train_log.json`. The rule-based A2 parser still
+  scores 1.000 on the same cases, so the adapter is a fallback for rows flagged `needs_llm_review`.
+* **Adapter weights** (`qlora_adapter_team35.zip`, not stored in git): ADD-LINK-HERE
 
 ## Layout
 
