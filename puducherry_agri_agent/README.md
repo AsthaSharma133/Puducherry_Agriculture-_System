@@ -153,7 +153,7 @@ offline and gives the same results.
   0.6167, text-layer pages 0.0 → 0.8). Produced by the Colab notebook on a T4 and saved to
   `eval/adapter_comparison.csv` and `eval/qlora_train_log.json`. The rule-based A2 parser still
   scores 1.000 on the same cases, so the adapter is a fallback for rows flagged `needs_llm_review`.
-* **Adapter weights** (`qlora_adapter_team35.zip`, not stored in git): ADD-LINK-HERE
+* **Adapter weights** (`qlora_adapter_team35.zip`, not stored in git): https://drive.google.com/file/d/1TEPQVvgglf220ibSQj3yEXCDmNafFnfa/view
 
 ## Layout
 
