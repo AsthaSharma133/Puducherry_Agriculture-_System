@@ -16,7 +16,7 @@ matplotlib>=3.8         # scripts/generate_figures.py, scripts/plot_soi_map.py
 pytest>=8.0             # python -m pytest tests/ -q
 
 # Optional - the project runs fully offline without these
-# geopandas>=0.14       # only for scripts/plot_soi_map.py once the SOI shapefile is downloaded
+# geopandas>=1.0        # only for the SOI map: scripts/plot_soi_map.py --download, then run it (tested 1.2.0)
 # langsmith>=0.1        # tracing, used only when LANGSMITH_API_KEY is set
 # anthropic>=0.40       # query-engine LLM fallback, used only when ANTHROPIC_API_KEY is set
 # python-dotenv>=1.0    # .env loading (a built-in fallback parser is used if absent)

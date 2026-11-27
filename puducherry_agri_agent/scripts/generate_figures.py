@@ -1,14 +1,16 @@
-"""Draw the 4 report/poster figures (300 dpi PNG) into docs/figures/ with plain matplotlib.
+"""Draw the 5 report/poster figures (300 dpi PNG) into docs/figures/ with plain matplotlib.
 Every number comes from eval/results_by_agent*.csv, db/puducherry_agri.db or db/schema.sql.
 
   fig_extraction_f1.png             per-agent precision / recall / F1 with n annotated
   fig_spatiotemporal_crop_trends.png paddy & sugarcane area, production, yield by region 2020-21..2024-25
   fig_architecture.png              Sources -> Supervisor -> A1/A2/A3 -> Normalizer -> SQLite KB -> Query engine
   fig_er_diagram.png                tables, keys and logical links of db/schema.sql
+  fig_qlora_base_vs_adapter.png     base Qwen2.5-1.5B vs QLoRA adapter F1 (eval/adapter_comparison.csv)
 
 Run (from puducherry_agri_agent/):  python scripts/generate_figures.py
 """
 import csv
+import json
 import re
 import sqlite3
 from pathlib import Path
@@ -286,6 +288,46 @@ def fig_er_diagram():
     save(fig, "fig_er_diagram.png")
 
 
+# ----------------------------------------------------------------------------- figure 5
+def fig_qlora_base_vs_adapter():
+    """Base model vs QLoRA adapter F1 on the 16 held-out S3 cases: overall, OCR pages, text layer.
+    Numbers come from eval/adapter_comparison.csv and eval/qlora_train_log.json (Colab T4 run)."""
+    rows = {r["case_or_subset"]: r for r in read_csv(PROJECT / "eval" / "adapter_comparison.csv")
+            if r["row_type"] == "summary"}
+    log = json.loads((PROJECT / "eval" / "qlora_train_log.json").read_text(encoding="utf-8"))
+    pipeline = next(r for r in read_csv(PROJECT / "eval" / "results_by_agent.csv") if r["agent"] == "A2")
+    groups = [("Overall", rows["all"]), ("OCR pages", rows["ocr_tesseract"]),
+              ("Text layer", rows["text_layer"])]
+    fig, ax = plt.subplots(figsize=(11, 6.5))
+    width = 0.34
+    for g, (name, r) in enumerate(groups):
+        base, adapter = float(r["base_f1"]), float(r["adapter_f1"])
+        ax.bar(g - width / 2 - 0.01, base, width, color=ORANGE, label="Base model" if g == 0 else None)
+        ax.bar(g + width / 2 + 0.01, adapter, width, color=BLUE, label="QLoRA adapter" if g == 0 else None)
+        ax.text(g - width / 2 - 0.01, base + 0.015, f"{base:.4f}", ha="center", va="bottom", fontsize=12, color=INK)
+        ax.text(g + width / 2 + 0.01, adapter + 0.015, f"{adapter:.4f}", ha="center", va="bottom",
+                fontsize=12, color=INK)
+        ax.text(g, max(base, adapter) + 0.11, f"ΔF1 = {float(r['delta_f1']):+.4f}", ha="center",
+                va="bottom", fontsize=13, fontweight="bold", color=INK)
+    ax.set_xticks(range(len(groups)))
+    ax.set_xticklabels([f"{name}\nn={r['n_cases']} cases, {r['n_fields']} fields" for name, r in groups])
+    ax.set_ylim(0, 1.05)
+    ax.set_ylabel("Field-level F1")
+    ax.yaxis.grid(True, color=GRID)
+    ax.set_axisbelow(True)
+    ax.legend(loc="upper left", frameon=False, ncol=2)
+    ax.set_title(f"{log['base_model'].split('/')[-1]}: base vs 4-bit QLoRA adapter on held-out S3 table "
+                 "columns", loc="left")
+    fig.text(0.01, -0.03, f"Adapter: r={log['r']}, alpha={log['lora_alpha']}, {log['epochs']} epochs, "
+             f"{log['train_examples']} training examples (2020-21, 2022-23, 2023-24; zero overlap with "
+             f"the test cases), {log['gpu']}, {log['train_seconds']:.0f} s.", fontsize=10, color=INK_2)
+    o = rows["all"]
+    fig.text(0.01, -0.07, f"Overall P/R: base {float(o['base_precision']):.4f}/{float(o['base_recall']):.4f}, "
+             f"adapter {float(o['adapter_precision']):.4f}/{float(o['adapter_recall']):.4f}. The deterministic "
+             f"A2 parser scores F1 = {float(pipeline['f1']):.3f} on the same 16 cases.", fontsize=10, color=INK_2)
+    save(fig, "fig_qlora_base_vs_adapter.png")
+
+
 def save(fig, name):
     """Save a figure at 300 dpi with a white background and close it."""
     OUT.mkdir(parents=True, exist_ok=True)
@@ -299,3 +341,4 @@ if __name__ == "__main__":
     fig_crop_trends()
     fig_architecture()
     fig_er_diagram()
+    fig_qlora_base_vs_adapter()

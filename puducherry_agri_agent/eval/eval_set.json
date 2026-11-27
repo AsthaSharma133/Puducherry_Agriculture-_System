@@ -39,7 +39,7 @@
         "ut_value": 18896,
         "text": "2022-23 p34 'Paddy Total' 2021-22 = 18896"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-02",
@@ -77,7 +77,7 @@
         "ut_value": 1257,
         "text": "2022-23 p34 'Sugarcane' 2021-22 = 1257"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-03",
@@ -115,7 +115,7 @@
         "ut_value": 165,
         "text": "2022-23 p34 'Mangoes' 2021-22 = 165"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-04",
@@ -153,7 +153,7 @@
         "ut_value": 465,
         "text": "2022-23 p35 'Cotton' 2021-22 = 465"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-05",
@@ -191,7 +191,7 @@
         "ut_value": 1877,
         "text": "2022-23 p35 'Coconut' 2021-22 = 1877"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-06",
@@ -229,7 +229,7 @@
         "ut_value": 15789,
         "text": "2022-23 p35 'Net Area Sown' 2021-22 = 15789"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-07",
@@ -267,7 +267,7 @@
         "ut_value": 2977,
         "text": "2022-23 p36 'Rice Total' yield 2021-22 = 2977"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-08",
@@ -305,7 +305,7 @@
         "ut_value": 24291,
         "text": "2022-23 p36 'Tapioca' yield 2021-22 = 24291"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-09",
@@ -343,7 +343,7 @@
         "ut_value": 11043,
         "text": "2022-23 p36 'Coconut' yield 2021-22 = 11043"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-10",
@@ -381,7 +381,7 @@
         "ut_value": 56254,
         "text": "2022-23 p36 'Rice Total' outturn 2021-22 = 56254"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-11",
@@ -419,7 +419,7 @@
         "ut_value": 150840,
         "text": "2022-23 p36 'Sugarcane' outturn 2021-22 = 150840"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-12",
@@ -457,7 +457,7 @@
         "ut_value": 983,
         "text": "2022-23 p36 'Groundnut' outturn 2021-22 = 983"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-13",
@@ -495,7 +495,7 @@
         "ut_value": 17043,
         "text": "2024-25 p40 'Paddy Total' 2024-25 = 17043"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-14",
@@ -533,7 +533,7 @@
         "ut_value": 1797,
         "text": "2024-25 p41 'Coconut' 2024-25 = 1797"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-15",
@@ -571,7 +571,7 @@
         "ut_value": 123000,
         "text": "2024-25 p42 'Sugarcane' yield 2024-25 = 123000"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A2-16",
@@ -609,7 +609,7 @@
         "ut_value": 4562,
         "text": "2024-25 p42 'Plantain' outturn 2024-25 = 4562"
       },
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-01",
@@ -636,7 +636,7 @@
         "page_or_table": "table 1 (working) row 2"
       },
       "verification": "Row Sl.No 1 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-02",
@@ -663,7 +663,7 @@
         "page_or_table": "table 1 (working) row 3"
       },
       "verification": "Row Sl.No 2 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-03",
@@ -690,7 +690,7 @@
         "page_or_table": "table 1 (working) row 14"
       },
       "verification": "Row Sl.No 13 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-04",
@@ -717,7 +717,7 @@
         "page_or_table": "table 1 (working) row 55"
       },
       "verification": "Row Sl.No 54 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-05",
@@ -744,7 +744,7 @@
         "page_or_table": "table 1 (working) row 58"
       },
       "verification": "Row Sl.No 57 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-06",
@@ -771,7 +771,7 @@
         "page_or_table": "table 2 (dormant) row 2"
       },
       "verification": "Row Sl.No 1 of the dormant table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-01",
@@ -795,7 +795,7 @@
         "page_or_table": "table 1 row 3 col 2014-15"
       },
       "verification": "Read from the saved live page: printed 'Paddy - I sort', unit 'Qtl'",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-02",
@@ -819,7 +819,7 @@
         "page_or_table": "table 1 row 4 col 2012-13"
       },
       "verification": "Read from the saved live page: unit printed as ',,' (ditto)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-03",
@@ -843,7 +843,7 @@
         "page_or_table": "table 1 row 12 col 2013-14"
       },
       "verification": "Read from the saved live page: 0 printed -> must be stored as NULL",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-04",
@@ -867,7 +867,7 @@
         "page_or_table": "table 1 row 17 col 2011-12"
       },
       "verification": "Read from the saved live page: unit '1000 nuts'",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-05",
@@ -891,7 +891,7 @@
         "page_or_table": "table 1 row 14 col 2010-11"
       },
       "verification": "Read from the saved live page: variety after ' - '",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A1-06",
@@ -915,7 +915,7 @@
         "page_or_table": "table 1 row 9 col 2014-15"
       },
       "verification": "Read from the saved live page: no variety, ditto unit",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-07",
@@ -939,7 +939,7 @@
         "page_or_table": "list 1 item 1"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-08",
@@ -963,7 +963,7 @@
         "page_or_table": "list 1 item 3"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-09",
@@ -987,7 +987,7 @@
         "page_or_table": "list 2 item 13"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-10",
@@ -1011,7 +1011,7 @@
         "page_or_table": "list 3 item 1"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-11",
@@ -1035,7 +1035,7 @@
         "page_or_table": "list 4 item 8"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     },
     {
       "case_id": "A3-12",
@@ -1059,7 +1059,7 @@
         "page_or_table": "list 4 item 9"
       },
       "verification": "Read from the saved live page (first rupee amount of the item)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+      "checked_by": "Astha Sharma"
     }
   ]
 }

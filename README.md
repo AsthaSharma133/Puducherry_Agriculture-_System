@@ -61,7 +61,8 @@ Windows). No API keys are needed; optional keys are listed in `puducherry_agri_a
 | Provenance / tool-selection accuracy | 1.000 / 1.000 |
 | Live benchmark queries | 10/10 pass with exact answers and provenance |
 | Train/test overlap for QLoRA | 0 (asserted in code and in tests) |
-| QLoRA base vs adapter F1 (RQ2) | produced by `notebooks/qlora_finetune_eval.ipynb` on a Colab T4 (not yet run) |
+| QLoRA base vs adapter F1 (RQ2) | Qwen2.5-1.5B-Instruct on 16 held-out S3 cases (Colab T4): base 0.0247 → adapter 0.6625 (ΔF1 +0.6378); OCR pages 0.0328 → 0.6167; text layer 0.0000 → 0.8000 (`eval/adapter_comparison.csv`) |
+| SOI map | `docs/figures/fig_puducherry_soi_map.png`: 4 regions on Survey of India boundaries (DataMeet mirror, CC BY 4.0) |
 
 Sources S2, S5 and S8 are implemented but their hosts refuse connections from outside India, so
 they are PENDING in this build; see `puducherry_agri_agent/docs/extraction_errors.md`.

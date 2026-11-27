@@ -16,8 +16,9 @@ ROUTES = {sid: a for a in AGENTS for sid in a.handles}
 # Sources that are deliberately not executed, with the reason logged to pipeline_runs.
 NOT_RUN = {
     "S4": ("SKIPPED", "Weekly report archive (2016-2018) is outside Phase 3 scope; S8 replaces it"),
-    "S9": ("PENDING", "Survey of India boundaries: manual download after SOI sign-in "
-                      "(geospatial reference for maps, not an extraction source)"),
+    "S9": ("SKIPPED", "Survey of India boundaries are a map layer, not extracted into the DB: "
+                      "data/raw/soi/ (SOI index maps via DataMeet mirror), drawn by "
+                      "scripts/plot_soi_map.py"),
 }
 
 # Run order: reference data first, then sources that use it.

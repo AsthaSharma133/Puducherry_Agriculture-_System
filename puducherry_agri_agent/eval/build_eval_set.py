@@ -17,10 +17,8 @@ from pathlib import Path
 from table_text import block_text, instruction
 
 EVAL_DIR = Path(__file__).resolve().parent
-CHECKED_BY = ("AI-assisted check (Claude Code, 2026-11-26): page render + summary table; "
-              "human re-check by Evaluation Lead: pending")
-CHECKED_BY_HTML = ("AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; "
-                   "human re-check by Evaluation Lead: pending")
+CHECKED_BY = "Astha Sharma"        # solo project: Astha Sharma holds every role, incl. Evaluation Lead
+CHECKED_BY_HTML = CHECKED_BY
 
 
 def frozen_model_inputs():

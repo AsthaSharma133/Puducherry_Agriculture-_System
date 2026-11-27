@@ -386,7 +386,7 @@ def update_manifest(rows: list[dict], lgd_counts: tuple[int, int, int]) -> dict:
         "S7": f"3 LGD SpreadsheetML exports (2026-11-04): {n_d} districts, {n_s} sub-districts, "
               f"{n_v} villages",
         "S8": pdf_volume(rows, "S8"),
-        "S9": "0 files - manual download after SOI portal sign-in (not automatable)",
+        "S9": soi_volume(),
     }
     for r in mrows:
         if r["source_id"] in volumes:
@@ -396,6 +396,15 @@ def update_manifest(rows: list[dict], lgd_counts: tuple[int, int, int]) -> dict:
         w.writeheader()
         w.writerows(mrows)
     return volumes
+
+
+def soi_volume() -> str:
+    """S9 boundary files present in data/raw/soi/ (downloaded by scripts/plot_soi_map.py --download)."""
+    shps = sorted((RAW / "soi").glob("*.shp"))
+    if not shps:
+        return "0 files - run: python scripts/plot_soi_map.py --download (SOI index maps, DataMeet mirror)"
+    mb = sum(f.stat().st_size for f in (RAW / "soi").iterdir() if f.is_file()) / 1e6
+    return f"{len(shps)} shapefiles ({', '.join(s.stem for s in shps)}) - {mb:.1f} MB [{TODAY}]"
 
 
 # --------------------------------------------------------------------------- main

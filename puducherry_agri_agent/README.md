@@ -119,8 +119,15 @@ Prints the OCR-read table (PUDUCHERRY 10725 15414 16951 43090 ... STATE 12697 26
 python scripts/generate_figures.py
 ```
 Writes `fig_extraction_f1.png`, `fig_spatiotemporal_crop_trends.png`, `fig_architecture.png`,
-`fig_er_diagram.png`. The SOI map (`python scripts/plot_soi_map.py`) needs the Survey of India
-shapefile in `data/raw/soi/`; without it the script prints the download steps.
+`fig_er_diagram.png`, `fig_qlora_base_vs_adapter.png`. The SOI map:
+```bash
+python scripts/plot_soi_map.py --download   # once: 8 boundary files into data/raw/soi/ (git-ignored, 16 MB)
+python scripts/plot_soi_map.py              # -> docs/figures/fig_puducherry_soi_map.png
+```
+Boundaries: Survey of India index maps (2011 Census districts), digitised by the DataMeet India
+community, https://github.com/datameet/maps (`Survey-of-India-Index-Maps/Boundaries/`, CC BY 4.0).
+The SOI Online Maps portal download was not available, so this SOI-derived mirror is used; every
+map credits Survey of India and DataMeet.
 
 Optional keys (`cp .env.example .env`): `LANGSMITH_API_KEY` turns on tracing and the eval upload,
 `ANTHROPIC_API_KEY` turns on the query engine's LLM fallback. With no keys everything above runs

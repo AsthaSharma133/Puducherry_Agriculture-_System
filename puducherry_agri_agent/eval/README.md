@@ -10,7 +10,8 @@
 | `check_overlap.py` | `assert`s zero overlap (source file + page + crop + region + year) between train and test. |
 | `run_eval.py` | Runs the real agents on the case inputs and writes `results_summary.json`, `results_by_agent.csv`, `results_by_case.csv`. |
 | `fixtures/` | Synthetic S2 / S5 HTML in the real page layouts (those hosts are blocked from the build machine). Values are invented and must not be reported as real data. |
-| `adapter_comparison.csv` | Written by `notebooks/qlora_finetune_eval.ipynb` after the Colab run (not produced here: no GPU). |
+| `adapter_comparison.csv` | Written by `notebooks/qlora_finetune_eval.ipynb` on a Colab T4: base vs QLoRA adapter P/R/F1 per subset and per case (overall F1 0.0247 → 0.6625). |
+| `qlora_train_log.json` | Training settings and run log of that Colab run (Qwen2.5-1.5B-Instruct, r=16, alpha=32, 4 epochs, 66 examples, 147 s). |
 
 ```bash
 python eval/verify_ground_truth.py   # 16 OK, 0 failing
