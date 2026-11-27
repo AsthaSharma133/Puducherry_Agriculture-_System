@@ -1,0 +1,1065 @@
+{
+  "name": "Team 35 Puducherry Phase 3 evaluation set",
+  "created": "2026-11-27",
+  "notes": "A2 = real S3 PDF columns (2021-22 OCR pages + 2024-25 text layer); A3 = real S6 rows + real S5 list items; A1 = real S2 table cells (S2/S5 pages saved from India on 2026-11-27). No synthetic cases.",
+  "cases": [
+    {
+      "case_id": "A2-01",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 45,
+      "table": "IV-A",
+      "column": 5,
+      "year": "2021-22",
+      "crop": "Paddy",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 13243,
+        "Karaikal": 5295,
+        "Mahe": 0,
+        "Yanam": 358,
+        "UT": 18896
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p45 Table IV-A col (5)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (5) is 'PADDY Total'. Read column (5) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 3365 5067 4811 13243 40 14 2 15 13314 0 267 0 41 308 13622\nKARAIKAL 731 4492 72 5295 0 0 0 0 5295 0 222 556 0 778 6073\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\nYANAM 199 159 0 358 0 0 0 0 358 0 2 0 0 2 360\nSTATE 4295 9718 4883 18896 40 14 2 15 18967 0 491 556 41 1088 20055",
+      "verification": "Read from 300-dpi render of p45; STATE matches 2022-23 p34 'Paddy Total' 2021-22 = 18896; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 34,
+        "ut_value": 18896,
+        "text": "2022-23 p34 'Paddy Total' 2021-22 = 18896"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-02",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 45,
+      "table": "IV-A",
+      "column": 17,
+      "year": "2021-22",
+      "crop": "Sugarcane",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 1257,
+        "Karaikal": 0,
+        "Mahe": 0,
+        "Yanam": 0,
+        "UT": 1257
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p45 Table IV-A col (17)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (17) is 'Sugarcane'. Read column (17) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (17) (18) (19) (20) (21) (22) (23) (24) (25) (26) (27) (28) = (29) (30) (31)\nPUDUCHERRY 1257 44 221 2 134 32 2 18 13 124 546 146 7 2 77\nKARAIKAL 0 16 9 0 23 0 0 0 0 2 34 0 0 0 0\nMAHE 0 0 21 0 7 0 6 0 0 2 36 5 0 0 0\nYANAM 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0\nSTATE 1257 60 251 2 165 32 8 18 13 128 617 151 7 2 77",
+      "verification": "Read from 300-dpi render of p45; STATE matches 2022-23 p34 'Sugarcane' 2021-22 = 1257; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 34,
+        "ut_value": 1257,
+        "text": "2022-23 p34 'Sugarcane' 2021-22 = 1257"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-03",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 45,
+      "table": "IV-A",
+      "column": 21,
+      "year": "2021-22",
+      "crop": "Mango",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 134,
+        "Karaikal": 23,
+        "Mahe": 7,
+        "Yanam": 1,
+        "UT": 165
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p45 Table IV-A col (21)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (21) is 'Mangoes'. Read column (21) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (17) (18) (19) (20) (21) (22) (23) (24) (25) (26) (27) (28) = (29) (30) (31)\nPUDUCHERRY 1257 44 221 2 134 32 2 18 13 124 546 146 7 2 77\nKARAIKAL 0 16 9 0 23 0 0 0 0 2 34 0 0 0 0\nMAHE 0 0 21 0 7 0 6 0 0 2 36 5 0 0 0\nYANAM 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0\nSTATE 1257 60 251 2 165 32 8 18 13 128 617 151 7 2 77",
+      "verification": "Read from 300-dpi render of p45; STATE matches 2022-23 p34 'Mangoes' 2021-22 = 165; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 34,
+        "ut_value": 165,
+        "text": "2022-23 p34 'Mangoes' 2021-22 = 165"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-04",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 46,
+      "table": "IV-A",
+      "column": 48,
+      "year": "2021-22",
+      "crop": "Cotton",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 5,
+        "Karaikal": 460,
+        "Mahe": 0,
+        "Yanam": 0,
+        "UT": 465
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p46 Table IV-A col (48)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (48) is 'Cotton'. Read column (48) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (48) (49) (50) (51) (52) (53) (54) (55) (56) (57) (58) (59) (60) (61) (62)\nPUDUCHERRY 5 328 483 984 0 1795 4 44 51 1220 3 3 33 895 4053\nKARAIKAL 460 1 53 165 0) 219 0) () 0 0 0) ) 0 21 700\nMAHE 0) 0) 0) 460 0) 460 0 0 0 0 0 0 0 0 460\nYANAM 0) 0) 0) 268 0) 268 0) 28 0 0 0) ) 0 4 300\nSTATE 465 329 536 1877 0 2742 4 72 51 1220 3 3 33 920 5513",
+      "verification": "Read from 300-dpi render of p46; STATE matches 2022-23 p35 'Cotton' 2021-22 = 465; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 35,
+        "ut_value": 465,
+        "text": "2022-23 p35 'Cotton' 2021-22 = 465"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-05",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 46,
+      "table": "IV-A",
+      "column": 51,
+      "year": "2021-22",
+      "crop": "Coconut",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 984,
+        "Karaikal": 165,
+        "Mahe": 460,
+        "Yanam": 268,
+        "UT": 1877
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p46 Table IV-A col (51)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (51) is 'Coconut'. Read column (51) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (48) (49) (50) (51) (52) (53) (54) (55) (56) (57) (58) (59) (60) (61) (62)\nPUDUCHERRY 5 328 483 984 0 1795 4 44 51 1220 3 3 33 895 4053\nKARAIKAL 460 1 53 165 0) 219 0) () 0 0 0) ) 0 21 700\nMAHE 0) 0) 0) 460 0) 460 0 0 0 0 0 0 0 0 460\nYANAM 0) 0) 0) 268 0) 268 0) 28 0 0 0) ) 0 4 300\nSTATE 465 329 536 1877 0 2742 4 72 51 1220 3 3 33 920 5513",
+      "verification": "Read from 300-dpi render of p46; STATE matches 2022-23 p35 'Coconut' 2021-22 = 1877; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 35,
+        "ut_value": 1877,
+        "text": "2022-23 p35 'Coconut' 2021-22 = 1877"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-06",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 46,
+      "table": "IV-A",
+      "column": 67,
+      "year": "2021-22",
+      "crop": "Net area sown",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 9849,
+        "Karaikal": 4891,
+        "Mahe": 562,
+        "Yanam": 487,
+        "UT": 15789
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p46 Table IV-A col (67)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table IV-A: Region-wise area under all crops (hectares). Column (67) is 'Net Cropped Area'. Read column (67) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (63) (64) (65) (66) (67)\nPUDUCHERRY 15877 4053 19930 10082 9849\nKARAIKAL 6139 700 6839 1948 4891\nMAHE 103 460 563 1 562\nYANAM 361 300 661 174 487\nSTATE 22480 5513 27993 12205 15789",
+      "verification": "Read from 300-dpi render of p46; STATE matches 2022-23 p35 'Net Area Sown' 2021-22 = 15789; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 35,
+        "ut_value": 15789,
+        "text": "2022-23 p35 'Net Area Sown' 2021-22 = 15789"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-07",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 48,
+      "table": "V-A",
+      "column": 5,
+      "year": "2021-22",
+      "crop": "Paddy",
+      "season": "All",
+      "metric": "yield_value",
+      "unit": "kg/ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 3254,
+        "Karaikal": 2298,
+        "Mahe": 0,
+        "Yanam": 2777,
+        "UT": 2977
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p48 Table V-A col (5)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-A: Region-wise yield rate of principal crops (kg per hectare). Column (5) is 'RICE Average'. Read column (5) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 3187 3042 3523 3254 2400 2643 2500 1200 1000 0 1000 120000 37900 6000 16500\nKARAIKAL 2263 2304 2284 2298 0 0 0 0 180 228 0 0 18500 12460 0\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 11000 2500 0\nYANAM 1600 4253 0 2777 0 0 0 0 400 0 0 0 0 8200 0\nSTATE 2956 2721 3505 2977 2400 2643 2500 1200 627 228 1000 120000 34956 6770 16500",
+      "verification": "Read from 300-dpi render of p48; STATE matches 2022-23 p36 'Rice Total' yield 2021-22 = 2977; regions sum to STATE",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 2977,
+        "text": "2022-23 p36 'Rice Total' yield 2021-22 = 2977"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-08",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 48,
+      "table": "V-A",
+      "column": 18,
+      "year": "2021-22",
+      "crop": "Tapioca",
+      "season": "All",
+      "metric": "yield_value",
+      "unit": "kg/ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 24096,
+        "Karaikal": 0,
+        "Mahe": 30000,
+        "Yanam": 0,
+        "UT": 24291
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p48 Table V-A col (18)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-A: Region-wise yield rate of principal crops (kg per hectare). Column (18) is 'Tapioca'. Read column (18) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (17) (18) (19) (20) (21) (22) (23) (24) (25) (26) (27) (28) (29) (30) (31)\nPUDUCHERRY 440 24096 4500 14818 15163 0 13300 0 0 3000 2500 2994 1000 10950 0\nKARAIKAL 420 0 0 0 11000 0 0 0 0 4000 2448 665 134 3200 0\nMAHE 350 30000 0 0 0 1500 0 0 1400 0 0 0 0 10000 0\nYANAM 0 0 0 0 0 0 0 0 0 0 0 0 0 18000 0\nSTATE 445 24291 4500 14818 14778 1500 13300 0 1400 3200 2449 2988 914 11043 0",
+      "verification": "Read from 300-dpi render of p48; STATE matches 2022-23 p36 'Tapioca' yield 2021-22 = 24291; regions sum to STATE",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 24291,
+        "text": "2022-23 p36 'Tapioca' yield 2021-22 = 24291"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-09",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 48,
+      "table": "V-A",
+      "column": 30,
+      "year": "2021-22",
+      "crop": "Coconut",
+      "season": "All",
+      "metric": "yield_value",
+      "unit": "nuts/ha",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 10950,
+        "Karaikal": 3200,
+        "Mahe": 10000,
+        "Yanam": 18000,
+        "UT": 11043
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p48 Table V-A col (30)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-A: Region-wise yield rate of principal crops (kg per hectare). Column (30) is 'Coconut (in nuts)'. Read column (30) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (17) (18) (19) (20) (21) (22) (23) (24) (25) (26) (27) (28) (29) (30) (31)\nPUDUCHERRY 440 24096 4500 14818 15163 0 13300 0 0 3000 2500 2994 1000 10950 0\nKARAIKAL 420 0 0 0 11000 0 0 0 0 4000 2448 665 134 3200 0\nMAHE 350 30000 0 0 0 1500 0 0 1400 0 0 0 0 10000 0\nYANAM 0 0 0 0 0 0 0 0 0 0 0 0 0 18000 0\nSTATE 445 24291 4500 14818 14778 1500 13300 0 1400 3200 2449 2988 914 11043 0",
+      "verification": "Read from 300-dpi render of p48; STATE matches 2022-23 p36 'Coconut' yield 2021-22 = 11043; regions sum to STATE",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 11043,
+        "text": "2022-23 p36 'Coconut' yield 2021-22 = 11043"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-10",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 49,
+      "table": "V-B",
+      "column": 5,
+      "year": "2021-22",
+      "crop": "Paddy",
+      "season": "All",
+      "metric": "production_value",
+      "unit": "tonnes",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 43090,
+        "Karaikal": 12170,
+        "Mahe": 0,
+        "Yanam": 994,
+        "UT": 56254
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p49 Table V-B col (5)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-B: Total out-turn of principal crops in each region (metric tonnes). Column (5) is 'RICE Total'. Read column (5) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 10725 15414 16951 43090 96 37 5 18 267 0 41 150840 8376 804 528\nKARAIKAL 1654 10350 166 12170 0 0 0 0 40 127 0 0 167 287 0\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 231 18 0\nYANAM 318 676 0 994 0 0 0 0 1 0 0 0 0 8 0\nSTATE 12697 26440 17117 56254 96 37 5 18 308 127 41 150840 8774 1117 528",
+      "verification": "Read from 300-dpi render of p49; STATE matches 2022-23 p36 'Rice Total' outturn 2021-22 = 56254; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 56254,
+        "text": "2022-23 p36 'Rice Total' outturn 2021-22 = 56254"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-11",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 49,
+      "table": "V-B",
+      "column": 13,
+      "year": "2021-22",
+      "crop": "Sugarcane",
+      "season": "All",
+      "metric": "production_value",
+      "unit": "tonnes",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 150840,
+        "Karaikal": 0,
+        "Mahe": 0,
+        "Yanam": 0,
+        "UT": 150840
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p49 Table V-B col (13)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-B: Total out-turn of principal crops in each region (metric tonnes). Column (13) is 'Sugarcane'. Read column (13) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 10725 15414 16951 43090 96 37 5 18 267 0 41 150840 8376 804 528\nKARAIKAL 1654 10350 166 12170 0 0 0 0 40 127 0 0 167 287 0\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 231 18 0\nYANAM 318 676 0 994 0 0 0 0 1 0 0 0 0 8 0\nSTATE 12697 26440 17117 56254 96 37 5 18 308 127 41 150840 8774 1117 528",
+      "verification": "Read from 300-dpi render of p49; STATE matches 2022-23 p36 'Sugarcane' outturn 2021-22 = 150840; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 150840,
+        "text": "2022-23 p36 'Sugarcane' outturn 2021-22 = 150840"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-12",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_vector_outline_ocr",
+      "input_file": "data/raw/s3/S3_SCR_2021-22.pdf",
+      "page": 49,
+      "table": "V-B",
+      "column": 28,
+      "year": "2021-22",
+      "crop": "Groundnut",
+      "season": "All",
+      "metric": "production_value",
+      "unit": "tonnes",
+      "expected_tool": "ocr_tesseract",
+      "expected": {
+        "Puducherry": 982,
+        "Karaikal": 1,
+        "Mahe": 0,
+        "Yanam": 0,
+        "UT": 983
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf",
+        "page_or_table": "p49 Table V-B col (28)"
+      },
+      "instruction": "Season & Crop Report 2021-22, Table V-B: Total out-turn of principal crops in each region (metric tonnes). Column (28) is 'Groundnut (kernals)'. Read column (28) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (17) (18) (19) (20) (21) (22) (23) (24) (25) (26) (27) (28) (29) (30) (31)\nPUDUCHERRY 55 3518 9 1141 743 0 133 0 0 132 13 982 481 10775 0\nKARAIKAL 1 0 0 0 55 0 0 0 0 44 1126 1 7 528 0\nMAHE 1 150 0 0 0 78 0 0 14 0 0 0 0 4600 0\nYANAM 0 0 0 0 0 0 0 0 0 0 0 0 0 4824 0\nSTATE 57 3668 9 1141 798 78 133 0 14 176 1139 983 488 20727 0",
+      "verification": "Read from 300-dpi render of p49; STATE matches 2022-23 p36 'Groundnut' outturn 2021-22 = 983; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2022-23.pdf",
+        "page": 36,
+        "ut_value": 983,
+        "text": "2022-23 p36 'Groundnut' outturn 2021-22 = 983"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-13",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_text_layer",
+      "input_file": "data/raw/s3/S3_SCR_2024-25.pdf",
+      "page": 51,
+      "table": "IV-A",
+      "column": 5,
+      "year": "2024-25",
+      "crop": "Paddy",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "text_layer",
+      "expected": {
+        "Puducherry": 11970,
+        "Karaikal": 4881,
+        "Mahe": 0,
+        "Yanam": 192,
+        "UT": 17043
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page_or_table": "p51 Table IV-A col (5)"
+      },
+      "instruction": "Season & Crop Report 2024-25, Table IV-A: Region-wise area under all crops (hectares). Column (5) is 'PADDY Total'. Read column (5) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 2371 4865 4734 11970 17 136 2 1 12126 0 254 1 166 421 12547\nKARAIKAL 789 4092 0 4881 0 0 0 0 4881 0 256 384 0 640 5521\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\nYANAM 96 96 0 192 0 0 0 0 192 0 0 0 0 0 192\nSTATE 3256 9053 4734 17043 17 136 2 1 17199 0 510 385 166 1061 18260",
+      "verification": "Read from 300-dpi render of p51; STATE matches 2024-25 p40 'Paddy Total' 2024-25 = 17043; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page": 40,
+        "ut_value": 17043,
+        "text": "2024-25 p40 'Paddy Total' 2024-25 = 17043"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-14",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_text_layer",
+      "input_file": "data/raw/s3/S3_SCR_2024-25.pdf",
+      "page": 52,
+      "table": "IV-A",
+      "column": 51,
+      "year": "2024-25",
+      "crop": "Coconut",
+      "season": "All",
+      "metric": "area_ha",
+      "unit": "ha",
+      "expected_tool": "text_layer",
+      "expected": {
+        "Puducherry": 962,
+        "Karaikal": 163,
+        "Mahe": 404,
+        "Yanam": 268,
+        "UT": 1797
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page_or_table": "p52 Table IV-A col (51)"
+      },
+      "instruction": "Season & Crop Report 2024-25, Table IV-A: Region-wise area under all crops (hectares). Column (51) is 'Coconut'. Read column (51) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (48) (49) (50) (51) (52) (53) (54) (55) (56) (57) (58) (59) (60) (61) (62)\nPUDUCHERRY 1 255 392 962 3 1612 2 56 66 1717 2 2 30 683 4171\nKARAIKAL 880 0 154 163 0 317 0 1 0 0 0 0 5 19 1222\nMAHE 0 0 0 404 0 404 0 0 0 0 0 0 0 0 404\nYANAM 0 0 0 268 0 268 0 16 0 0 0 0 0 5 289\nSTATE 881 255 546 1797 3 2601 2 73 66 1717 2 2 35 707 6086",
+      "verification": "Read from 300-dpi render of p52; STATE matches 2024-25 p41 'Coconut' 2024-25 = 1797; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page": 41,
+        "ut_value": 1797,
+        "text": "2024-25 p41 'Coconut' 2024-25 = 1797"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-15",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_text_layer",
+      "input_file": "data/raw/s3/S3_SCR_2024-25.pdf",
+      "page": 55,
+      "table": "V-A",
+      "column": 13,
+      "year": "2024-25",
+      "crop": "Sugarcane",
+      "season": "All",
+      "metric": "yield_value",
+      "unit": "kg/ha",
+      "expected_tool": "text_layer",
+      "expected": {
+        "Puducherry": 123000,
+        "Karaikal": 0,
+        "Mahe": 0,
+        "Yanam": 0,
+        "UT": 123000
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page_or_table": "p55 Table V-A col (13)"
+      },
+      "instruction": "Season & Crop Report 2024-25, Table V-A: Region-wise yield rate of principal crops (kg per hectare). Column (13) is 'Sugarcane'. Read column (13) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 3091 2875 3218 3053 3000 3000 3000 1300 1197 800 904 123000 15160 5250 16180\nKARAIKAL 1914 2097 0 2067 0 0 0 0 140 145 0 0 16700 3450 0\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 12000 3000 0\nYANAM 1723 2570 0 2146 0 0 0 0 0 0 0 0 0 5250 0\nSTATE 2765 2520 3218 2761 3000 3000 3000 1300 667 148 904 123000 15007 4967 16180",
+      "verification": "Read from 300-dpi render of p55; STATE matches 2024-25 p42 'Sugarcane' yield 2024-25 = 123000; regions sum to STATE",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page": 42,
+        "ut_value": 123000,
+        "text": "2024-25 p42 'Sugarcane' yield 2024-25 = 123000"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A2-16",
+      "agent": "A2",
+      "source_id": "S3",
+      "synthetic": false,
+      "input_type": "pdf_text_layer",
+      "input_file": "data/raw/s3/S3_SCR_2024-25.pdf",
+      "page": 56,
+      "table": "V-B",
+      "column": 14,
+      "year": "2024-25",
+      "crop": "Banana/Plantain",
+      "season": "All",
+      "metric": "production_value",
+      "unit": "tonnes",
+      "expected_tool": "text_layer",
+      "expected": {
+        "Puducherry": 4184,
+        "Karaikal": 150,
+        "Mahe": 228,
+        "Yanam": 0,
+        "UT": 4562
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page_or_table": "p56 Table V-B col (14)"
+      },
+      "instruction": "Season & Crop Report 2024-25, Table V-B: Total out-turn of principal crops in each region (metric tonnes). Column (14) is 'Plantain'. Read column (14) in every region row and return only JSON with the keys Puducherry, Karaikal, Mahe, Yanam, UT (UT is the STATE row). Use numbers; a '-' cell means 0.",
+      "model_input": "(1) (2) (3) (4) (5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16)\nPUDUCHERRY 7328 13985 15234 36547 51 408 6 1 304 1 150 92250 4184 809 728\nKARAIKAL 1510 8580 0 10090 0 0 0 0 36 56 0 0 150 72 0\nMAHE 0 0 0 0 0 0 0 0 0 0 0 0 228 18 0\nYANAM 165 247 0 412 0 0 0 0 0 0 0 0 0 5 0\nSTATE 9003 22812 15234 47049 51 408 6 1 340 57 150 92250 4562 904 728",
+      "verification": "Read from 300-dpi render of p56; STATE matches 2024-25 p42 'Plantain' outturn 2024-25 = 4562; regions sum to STATE (additive table)",
+      "summary_check": {
+        "file": "data/raw/s3/S3_SCR_2024-25.pdf",
+        "page": 42,
+        "ut_value": 4562,
+        "text": "2024-25 p42 'Plantain' outturn 2024-25 = 4562"
+      },
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-01",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "Pondicherry Co-operative Urban Bank"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Puducherry",
+        "region_raw": "Pondy",
+        "lgd_district_code": 600,
+        "lgd_subdistrict_code": null,
+        "society_type": "Primary",
+        "reg_no": "14",
+        "status": "working"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 1 (working) row 2"
+      },
+      "verification": "Row Sl.No 1 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-02",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "The Karaikal Central Co-operative Processing Supply & Marketing Society Ltd."
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Karaikal",
+        "region_raw": "Karaikal",
+        "lgd_district_code": 598,
+        "lgd_subdistrict_code": null,
+        "society_type": "Central",
+        "reg_no": "15",
+        "status": "working"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 1 (working) row 3"
+      },
+      "verification": "Row Sl.No 2 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-03",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "Thirunallar Primary Agricultural Co-operative Credit Society"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Karaikal",
+        "region_raw": "Karaikal",
+        "lgd_district_code": 598,
+        "lgd_subdistrict_code": null,
+        "society_type": "Primary",
+        "reg_no": "38",
+        "status": "working"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 1 (working) row 14"
+      },
+      "verification": "Row Sl.No 13 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-04",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "Mahe Service Co-operative Credit Society"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Mahe",
+        "region_raw": "Mahe",
+        "lgd_district_code": 600,
+        "lgd_subdistrict_code": 5913,
+        "society_type": "Primary",
+        "reg_no": "571",
+        "status": "working"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 1 (working) row 55"
+      },
+      "verification": "Row Sl.No 54 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-05",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "Mahe Urban Co-operative Society"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Mahe",
+        "region_raw": "Mahe",
+        "lgd_district_code": 600,
+        "lgd_subdistrict_code": 5913,
+        "society_type": "Primary",
+        "reg_no": "791",
+        "status": "working"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 1 (working) row 58"
+      },
+      "verification": "Row Sl.No 57 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-06",
+      "agent": "A3",
+      "source_id": "S6",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+      "match": {
+        "name": "Siddhivinayagar Farmers Service Co-operative Society"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "region": "Puducherry",
+        "region_raw": "Pondy",
+        "lgd_district_code": 600,
+        "lgd_subdistrict_code": null,
+        "society_type": "Primary",
+        "reg_no": "25",
+        "status": "dormant"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
+        "page_or_table": "table 2 (dormant) row 2"
+      },
+      "verification": "Row Sl.No 1 of the dormant table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-01",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2014-15",
+        "commodity": "Paddy",
+        "variety": "I"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 1947.64,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 3 col 2014-15"
+      },
+      "verification": "Read from the saved live page: printed 'Paddy - I sort', unit 'Qtl'",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-02",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2012-13",
+        "commodity": "Paddy",
+        "variety": "II"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 1394.88,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 4 col 2012-13"
+      },
+      "verification": "Read from the saved live page: unit printed as ',,' (ditto)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-03",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2013-14",
+        "commodity": "Canegur",
+        "variety": "I"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": null,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 12 col 2013-14"
+      },
+      "verification": "Read from the saved live page: 0 printed -> must be stored as NULL",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-04",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2011-12",
+        "commodity": "Coconut",
+        "variety": ""
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 6908.33,
+        "price_unit": "Rs/1000 nuts"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 17 col 2011-12"
+      },
+      "verification": "Read from the saved live page: unit '1000 nuts'",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-05",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2010-11",
+        "commodity": "Onion",
+        "variety": "Dindigul"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 2667.92,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 14 col 2010-11"
+      },
+      "verification": "Read from the saved live page: variety after ' - '",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A1-06",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2014-15",
+        "commodity": "Greengram",
+        "variety": ""
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 9114.25,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 9 col 2014-15"
+      },
+      "verification": "Read from the saved live page: no variety, ditto unit",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-07",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "Subsidy for Paddy production"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": "Paddy",
+        "assistance_amount_rs": 5000.0,
+        "amount_basis": "per acre",
+        "period_basis": "per season"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 1 item 1"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-08",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "Subsidy for Pulses production"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": "Pulses",
+        "assistance_amount_rs": 2000.0,
+        "amount_basis": "per acre",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 1 item 3"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-09",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "new area under cashew"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": "Cashew",
+        "assistance_amount_rs": 50000.0,
+        "amount_basis": "per ha",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 2 item 13"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-10",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "construction of Tube well not exceeding"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 150000.0,
+        "amount_basis": "per tube well",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 3 item 1"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-11",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "Kisan Gosthies"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 15000.0,
+        "amount_basis": "per block",
+        "period_basis": "per season"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 4 item 8"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    },
+    {
+      "case_id": "A3-12",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "conduct farm schools"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 29414.0,
+        "amount_basis": "per farm school",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 4 item 9"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "Astha Sharma"
+    }
+  ]
+}

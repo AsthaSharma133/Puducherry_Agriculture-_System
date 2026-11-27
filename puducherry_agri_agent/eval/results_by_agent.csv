@@ -1,0 +1,5 @@
+agent,n_cases,n_fields,tp,fp,fn,precision,recall,f1,exact_match_rate,provenance_accuracy,tool_selection_accuracy,task_completion_rate,documents,avg_latency_s_per_document
+A1,6,12,12,0,0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1,0.046
+A2,16,80,80,0,0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,5,1.121
+A3,12,66,66,0,0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,2,0.08
+MACRO,34,158,,,,1.0,1.0,1.0,1.0,1.0,1.0,1.0,,0.4157

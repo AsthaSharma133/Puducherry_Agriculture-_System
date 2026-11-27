@@ -1,3 +1,20 @@
-model_variant,extraction_accuracy_f1,latency_seconds,gpu_memory_gb,notes
-Base Model (Un-tuned),0.740,3.85,14.2,Baseline LLM without field adaptation
-QLoRA Adapter (Fine-tuned),0.825,3.91,14.5,Fine-tuned on Puducherry DES PDF schemas
+row_type,case_or_subset,n_cases,n_fields,base_precision,base_recall,base_f1,adapter_precision,adapter_recall,adapter_f1,delta_f1
+summary,all,16,80,1.0,0.0125,0.0247,0.6625,0.6625,0.6625,0.6378
+summary,ocr_tesseract,12,60,1.0,0.0167,0.0328,0.6167,0.6167,0.6167,0.5839
+summary,text_layer,4,20,0.0,0.0,0.0,0.8,0.8,0.8,0.8
+case,A2-01,1,5,0.0,0.0,0.0,0.2,0.2,0.2,0.2
+case,A2-02,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-03,1,5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+case,A2-04,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-05,1,5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+case,A2-06,1,5,1.0,0.2,0.3333,1.0,1.0,1.0,0.6667
+case,A2-07,1,5,0.0,0.0,0.0,0.8,0.8,0.8,0.8
+case,A2-08,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-09,1,5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+case,A2-10,1,5,0.0,0.0,0.0,0.6,0.6,0.6,0.6
+case,A2-11,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-12,1,5,0.0,0.0,0.0,0.8,0.8,0.8,0.8
+case,A2-13,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-14,1,5,0.0,0.0,0.0,0.8,0.8,0.8,0.8
+case,A2-15,1,5,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+case,A2-16,1,5,0.0,0.0,0.0,0.4,0.4,0.4,0.4

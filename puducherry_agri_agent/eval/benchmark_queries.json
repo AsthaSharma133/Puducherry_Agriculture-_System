@@ -1,0 +1,86 @@
+{
+  "name": "Team 35 live benchmark queries (Phase 3 demo)",
+  "notes": "Expected strings were checked by hand against the source documents: S3 values against the printed region tables and the reports' 5-year summary pages, S6 counts against the saved HTML (58 working + 3 dormant rows), S7 against the LGD exports. run_queries.py passes a query only if the intent, every expected string and the expected provenance all match.",
+  "queries": [
+    {
+      "id": "Q01", "category": "spatial",
+      "question": "Which region had the highest paddy production in 2023-24?",
+      "expected_intent": "compare",
+      "expect_in_answer": ["Puducherry 46,970", "Karaikal 13,821", "Yanam 515", "Mahe 0", "Highest: Puducherry"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2023-24.pdf", "page_or_table_contains": "p51 Table V-B col (5)"},
+      "verified_against": "2023-24 report p51 Table V-B col (5) (text layer); regions sum to STATE 61306. Note: the 2024-25 summary prints 61299 for the same total (source inconsistency, docs/extraction_errors.md E4)."
+    },
+    {
+      "id": "Q02", "category": "spatial",
+      "question": "Compare coconut area across Puducherry, Karaikal, Mahe and Yanam in 2024-25",
+      "expected_intent": "compare",
+      "expect_in_answer": ["Puducherry 962", "Mahe 404", "Yanam 268", "Karaikal 163"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf", "page_or_table_contains": "p52 Table IV-A col (51)"},
+      "verified_against": "2024-25 p52 render (eval case A2-14); UT 1797 = 2024-25 p41 summary"
+    },
+    {
+      "id": "Q03", "category": "spatial",
+      "question": "Compare banana yield across the regions in 2020-21",
+      "expected_intent": "compare",
+      "expect_in_answer": ["Puducherry 68,000", "Karaikal 36,175", "Mahe 11,000", "Yanam 0"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2020-21.pdf", "page_or_table_contains": "p49 Table V-A col (14)"},
+      "verified_against": "2020-21 p49 Table V-A col (14) Plantain; UT 61342 = 2022-23 p36 summary (Plantain yield 2020-21)"
+    },
+    {
+      "id": "Q04", "category": "temporal",
+      "question": "How did paddy area in the UT change from 2020-21 to 2024-25?",
+      "expected_intent": "trend",
+      "expect_in_answer": ["2020-21 18,206", "2021-22 18,896", "2022-23 19,767", "2023-24 19,571", "2024-25 17,043", "-6.4%"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf", "page_or_table_contains": "p45 Table IV-A col (5)"},
+      "verified_against": "2024-25 report p40 'D. Area under all crops', Paddy Total: 18206 18896 19767 19571 17043"
+    },
+    {
+      "id": "Q05", "category": "temporal",
+      "question": "Show the trend of sugarcane production in Pondicherry from 2020-21 to 2024-25",
+      "expected_intent": "trend",
+      "expect_in_answer": ["Puducherry Sugarcane production", "2020-21 160,080", "2021-22 150,840", "2022-23 153,360", "2023-24 150,798", "2024-25 92,250", "-42.4%"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf", "page_or_table_contains": "p56 Table V-B col (13)"},
+      "verified_against": "Region tables V-B col (13) of each year; 2020-21..2023-24 also match the 5-year summaries (2022-23 p36, 2024-25 p42). 'Pondicherry' resolves to Puducherry through location_aliases."
+    },
+    {
+      "id": "Q06", "category": "temporal",
+      "question": "What is the trend of banana yield in the UT over the years?",
+      "expected_intent": "trend",
+      "expect_in_answer": ["2020-21 61,342", "2021-22 34,956", "2022-23 35,393", "2023-24 35,610", "2024-25 15,007"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf", "page_or_table_contains": "p55 Table V-A col (14)"},
+      "verified_against": "2024-25 report p42 'E. Average yield' Plantain: 61342 34956 35393 35610 15007"
+    },
+    {
+      "id": "Q07", "category": "provenance",
+      "question": "Which source document, page and table did the 2021-22 Karaikal paddy production come from?",
+      "expected_intent": "provenance",
+      "expect_in_answer": ["12,170 tonnes", "data/raw/s3/S3_SCR_2021-22.pdf", "p49 Table V-B col (5)", "ocr_tesseract"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2021-22.pdf", "page_or_table_contains": "p49 Table V-B col (5)"},
+      "verified_against": "2021-22 p49 render (vector-outline page, eval case A2-10)"
+    },
+    {
+      "id": "Q08", "category": "provenance",
+      "question": "Where does the 2024-25 Puducherry sugarcane area number come from?",
+      "expected_intent": "provenance",
+      "expect_in_answer": ["750 ha", "data/raw/s3/S3_SCR_2024-25.pdf", "p51 Table IV-A col (17)", "text_layer"],
+      "expect_provenance": {"source_file_or_url": "data/raw/s3/S3_SCR_2024-25.pdf", "page_or_table_contains": "p51 Table IV-A col (17)"},
+      "verified_against": "2024-25 report p40 summary: Sugarcane area 2024-25 = 750 (all in Puducherry region)"
+    },
+    {
+      "id": "Q09", "category": "coop_lgd",
+      "question": "How many working and dormant co-operative societies are in each region?",
+      "expected_intent": "coop",
+      "expect_in_answer": ["61 credit co-operative societies", "Puducherry 49 working + 3 dormant", "Karaikal 7 working + 0 dormant", "Mahe 2 working + 0 dormant", "Yanam 0 working"],
+      "expect_provenance": {"source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html", "page_or_table_contains": "table 1 (working)"},
+      "verified_against": "Saved S6 HTML: working table 58 rows (Pondy 49, Karaikal 7, Mahe 2), dormant table 3 rows (Pondy)"
+    },
+    {
+      "id": "Q10", "category": "coop_lgd",
+      "question": "How many LGD districts are there compared with the reporting regions?",
+      "expected_intent": "lgd",
+      "expect_in_answer": ["2 districts", "Karaikal (598)", "Puducherry (600)", "4 regions", "Mahe (5913)", "Yanam (5908)"],
+      "expect_provenance": {"source_file_or_url": "data/raw/lgd/districtofSpecificState2026_11_04_23_30_44_613.xls", "page_or_table_contains": "row"},
+      "verified_against": "LGD district export (2 rows: 598 Karaikal, 600 Puducherry) and sub-district export (5913 Mahe, 5908 Yanam under 600)"
+    }
+  ]
+}

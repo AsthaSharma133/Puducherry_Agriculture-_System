@@ -1,111 +1,87 @@
-# Database Dictionary — Puducherry Agricultural Intelligence System
+# Data Dictionary: Puducherry Agricultural Intelligence System (Team 35, Phase 3)
 
-This data dictionary documents the database tables, column definitions, data types, constraints, and relationships for the Puducherry Agricultural Intelligence Agent (Team 35).
+Database: `db/puducherry_agri.db` (SQLite 3). Schema: `db/schema.sql`. Full SQL dump: `db/dump/puducherry_agri_dump.sql`.
+Built by `python -m src.orchestrator` (see `README.md`).
 
+## Provenance columns (on every data table)
 
-## 1. Table: `lgd_administrative_registry`
+| Column | Type | Meaning |
+|---|---|---|
+| `source_id` | TEXT | Manifest id (`S3`, `S6`, `S7`, …), see `data/manifest.csv` |
+| `source_file_or_url` | TEXT | Raw file the value came from, relative to `puducherry_agri_agent/` (URL mapping in `data/raw/raw_inventory.csv`) |
+| `page_or_table` | TEXT | Exact location, e.g. `p46 Table IV-A col (5); p49 Table V-A col (5); p50 Table V-B col (5)` or `table 1 (working) row 12` |
+| `agent_id` | TEXT | `A1` prices, `A2` PDF reports, `A3` web entities, `REF` LGD lookup loader |
+| `run_id` | TEXT | Pipeline run that wrote the row → `pipeline_runs.run_id` |
+| `extracted_at` | TEXT | ISO-8601 UTC timestamp |
 
-* **`lgd_village_code`**: Primary Key, Integer.
-* **`village_name`**: Text (150). Standardized village name.
-* **`lgd_subdistrict_code`**: Integer. LGD code for the sub-district / taluk.
-* **`subdistrict_name`**: Text (100). Name of the sub-district / taluk.
-* **`lgd_district_code`**: Integer. LGD code for the district.
-* **`district_name`**: Text (100). District jurisdiction (`Puducherry`, `Karaikal`, `Mahe`, `Yanam`).
-* **`state_code`**: Integer. LGD State Code (Default `34` for Puducherry UT).
-* **`state_name`**: Text (50). State name (Default `Puducherry`).
-* **`created_at`**: Timestamp. Record insertion timestamp.
+A re-run replaces a source's rows only when that source succeeds; FAILED/PENDING runs never delete data.
 
----
+## `lgd_locations` (S7, REF)
+Administrative units from the LGD exports plus the 4 reporting regions.
 
-## 2. Table: `schemes_and_incentives`
+| Column | Type | Notes |
+|---|---|---|
+| `location_id` | INTEGER PK | |
+| `entity_type` | TEXT | `state`, `district`, `subdistrict`, `village`, `region` |
+| `lgd_code` | INTEGER | LGD code (NULL for `region`, which is not an LGD unit) |
+| `name`, `local_name` | TEXT | English and local-script name as published by LGD |
+| `lgd_state_code` | INTEGER | Always 34 |
+| `lgd_district_code`, `lgd_subdistrict_code` | INTEGER | Parent codes |
+| `region` | TEXT | Puducherry / Karaikal / Mahe / Yanam |
+| `census2011_code` | TEXT | NULL where LGD publishes `000000` |
+| `status` | TEXT | LGD village status (`Inhabitant`, …) |
 
-* **`scheme_id`**: Primary Key, Auto-incrementing Integer. Unique scheme record ID.
-* **`scheme_name`**: Text (255), Not Null. Name of the subsidy or scheme.
-* **`target_crop`**: Text (100). Eligible crops (e.g., `Paddy`, `Pulses`, `Groundnut`).
-* **`subsidy_amount_per_acre`**: Decimal (10,2). Financial incentive value in INR per acre.
-* **`eligibility_criteria`**: Text. Requirements for farmer eligibility.
-* **`regional_scope`**: Text (100). Enclave scope (`Puducherry`, `Karaikal`, `Mahe`, `Yanam`, or `UT Wide`).
-* **`source_url`**: Text. Source URL endpoint (`https://agri.py.gov.in/schemes.html`).
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
+**Note:** LGD lists only 2 districts: Karaikal (598) and Puducherry (600). Mahe (5913) and Yanam (5908) are sub-districts of district 600.
 
----
+## `location_aliases` (S7, REF)
+Spelling variants from `data/aliases.csv` (`Pondicherry`, `Pondy`, `PY` → Puducherry, …).
+Columns: `alias`, `alias_key` (normalized lookup key), `canonical_name`, `entity_type`, `lgd_district_code`, `lgd_subdistrict_code`, `notes`. Unique on (`alias_key`, `entity_type`, `canonical_name`).
 
-## 3. Table: `weekly_crop_advisories`
+## `crop_statistics` (S3, A2)
+One row per agricultural year × region × crop × season, merged from Season & Crop Report Tables IV-A (area), V-A (yield) and V-B (out-turn).
 
-* **`advisory_id`**: Primary Key, Auto-incrementing Integer. Unique advisory record ID.
-* **`report_date`**: Date, Not Null. Date of advisory publication (`YYYY-MM-DD`).
-* **`district_name`**: Text (100), Not Null. Target district name.
-* **`rainfall_mm`**: Decimal (6,2). Recorded weekly rainfall in millimeters.
-* **`crop_status_summary`**: Text. Summary of crop status and seasonal conditions.
-* **`pest_warning`**: Text. Pest alerts and recommended chemical/organic interventions.
-* **`advisory_text`**: Text. Full extracted advisory narrative.
-* **`source_pdf_url`**: Text. Source PDF publication URL.
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
+| Column | Type | Notes |
+|---|---|---|
+| `crop_year` | TEXT | Agricultural year July–June, `2020-21` … `2024-25` |
+| `region` | TEXT | Puducherry / Karaikal / Mahe / Yanam / `UT` (the report's STATE row) |
+| `lgd_district_code`, `lgd_subdistrict_code` | INTEGER | From `AliasResolver` |
+| `crop` | TEXT | Canonical name (`src/normalizer/crops.py`) |
+| `season` | TEXT | `I`, `II`, `III` (paddy crop seasons) or `All` |
+| `is_aggregate` | INTEGER | 1 for totals (Total cereals, Gross cropped area, Net area sown, …) |
+| `crop_label_raw` | TEXT | Header text extracted from the PDF |
+| `area_ha` | REAL | Table IV-A, hectares |
+| `yield_value`, `yield_unit` | REAL, TEXT | Table V-A: kg/ha (coconut: nuts/ha) |
+| `production_value`, `production_unit` | REAL, TEXT | Table V-B: tonnes (coconut: thousand nuts, verified as area × yield / 1000) |
+| `product_form` | TEXT | `rice (milled)` for paddy yield/production, `kapas` cotton, `kernels` groundnut, `nuts` coconut |
+| `extraction_method` | TEXT | `text_layer` (PyMuPDF) or `ocr_tesseract` (2021-22 vector-outline pages) |
+| `header_source` | TEXT | `page`, or `template:2020-21` when OCR column headers were taken from the nearest year with an identical layout |
+| `validation_status` | TEXT | `ok`, `state_sum_mismatch` (STATE ≠ sum of regions), `area_yield_mismatch` |
+| `area_yield_rel_error` | REAL | abs(area × yield / 1000 − production) / production |
 
----
+Yield and production exist only for the ~30 principal crops in Tables V-A/V-B; IV-A covers all crops, so `area_ha` is filled for every row.
 
-## 4. Table: `mandi_prices_arrivals`
+## `coop_societies` (S6, A3)
+| Column | Type | Notes |
+|---|---|---|
+| `region` / `region_raw` | TEXT | Canonical region / as printed (`Pondy`) |
+| `lgd_district_code`, `lgd_subdistrict_code` | INTEGER | |
+| `society_type` | TEXT | Primary / Central / Apex |
+| `reg_no`, `name` | TEXT | Registration number and society name (unique pair) |
+| `status` | TEXT | `working` or `dormant` (from the table heading) |
 
-* **`arrival_id`**: Primary Key, Auto-incrementing Integer. Unique arrival transaction ID.
-* **`arrival_date`**: Date, Not Null. Date of market trade (`YYYY-MM-DD`).
-* **`district_name`**: Text (100), Not Null. District market location.
-* **`market_name`**: Text (150), Not Null. Regulated mandi / market yard name.
-* **`commodity_name`**: Text (100), Not Null. Commodity traded (e.g., `Paddy (Dhan)`, `Cotton`).
-* **`variety`**: Text (100). Crop variety classification.
-* **`arrival_tonnes`**: Decimal (10,2). Tonnage arrived at market yard.
-* **`min_price_rs_per_qtl`**: Decimal (10,2). Minimum trade price per quintal (100 kg).
-* **`max_price_rs_per_qtl`**: Decimal (10,2). Maximum trade price per quintal.
-* **`modal_price_rs_per_qtl`**: Decimal (10,2). Modal / average trade price per quintal.
-* **`lgd_village_code`**: Foreign Key (Integer). Links market location to `lgd_administrative_registry`.
-* **`source_portal`**: Text (50). Originating portal (Default `AGMARKNET`).
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
+The source page has no warehouse locations or capacities; none are claimed.
 
----
+## `market_prices` (S2, A1; schema ready)
+`period` (e.g. `2013-14`), `market_level` (`UT average wholesale`), `region` (NULL = UT), `commodity`, `variety` (`I`/`II` split from labels like *Paddy I*), `price_value` (0 in the source → NULL, logged), `price_unit` (`Rs/quintal`, `Rs/1000 nuts`), `unit_raw`.
 
-## 5. Table: `regulated_market_prices`
+## `schemes` (S5, A3; schema ready)
+`scheme_name`, `category` (section heading), `crop`, `assistance_amount_rs`, `amount_basis` (per acre / per ha / per unit), `period_basis` (per season / per year), `description` (full row text), `valid_from` (snapshot date: the page is undated).
 
-* **`price_id`**: Primary Key, Auto-incrementing Integer. Unique market price ID.
-* **`price_date`**: Date, Not Null. Date of price recording (`YYYY-MM-DD`).
-* **`market_location`**: Text (150), Not Null. Market site location.
-* **`commodity_name`**: Text (100), Not Null. Name of agricultural commodity.
-* **`retail_price_per_kg`**: Decimal (8,2). Retail price per kilogram in INR.
-* **`wholesale_price_per_qtl`**: Decimal (10,2). Wholesale price per quintal in INR.
-* **`source_url`**: Text. Direct source URL endpoint.
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
+## `agromet_advisories` (S8, A2; schema ready)
+Long format: `bulletin_date`, `region` (Puducherry / Karaikal), `lgd_district_code`, `section` (`past_weather`, `forecast`, `advisory`, `other`), `target_date`, `parameter`, `value_text`, `value_num`, `unit`, `crop`, `advisory_text`.
 
----
+## `pipeline_runs` (orchestrator)
+One row per source step and one `source_id = 'ALL'` summary row per run: `run_id`, `source_id`, `agent_id`, `status` (SUCCESS / PARTIAL / FAILED / PENDING / SKIPPED), `attempts`, `inputs_found`, `records_out`, `issues_logged`, `started_at`, `finished_at`, `duration_s`, `error_message`, `notes`, `trace_backend` (`langsmith` or `none`).
 
-## 6. Table: `crop_production_stats`
-
-* **`stat_id`**: Primary Key, Auto-incrementing Integer. Unique production record ID.
-* **`crop_year`**: Text (20), Not Null. Agricultural year (e.g., `2023-2024`).
-* **`district_name`**: Text (100), Not Null. District jurisdiction.
-* **`crop_name`**: Text (100), Not Null. Cultivated crop.
-* **`area_hectares`**: Decimal (10,2). Cultivated area in hectares.
-* **`production_metric_tonnes`**: Decimal (12,2). Total harvest volume in metric tonnes.
-* **`yield_kg_per_hectare`**: Decimal (10,2). Calculated yield in kg per hectare.
-* **`source_pdf_url`**: Text. DES PDF report source link.
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
-
----
-
-## 7. Table: `storage_warehouse_logistics`
-
-* **`facility_id`**: Primary Key, Auto-incrementing Integer. Unique facility ID.
-* **`society_name`**: Text (255), Not Null. Name of PACCS or storage co-operative.
-* **`facility_type`**: Text (100). Facility type (`PACCS`, `Cold Storage`, `Warehouse`).
-* **`region_name`**: Text (100), Not Null. Region location.
-* **`capacity_metric_tonnes`**: Decimal (10,2). Storage capacity in metric tonnes.
-* **`contact_details`**: Text. Address and phone numbers.
-* **`source_url`**: Text. Direct source URL endpoint.
-* **`ingested_at`**: Timestamp. Data ingestion timestamp.
-
----
-
-## 8. Table: `scraped_logs`
-
-* **`log_id`**: Primary Key, Auto-incrementing Integer. Unique log ID.
-* **`url`**: Text, Not Null. Target scrape URL.
-* **`status`**: Text Check (`SUCCESS`, `FAILED`). Status of extraction run.
-* **`characters_extracted`**: Integer. Total extracted character length.
-* **`timestamp`**: Timestamp. Log execution time.
+## `extraction_issues` (all agents)
+Every problem found during extraction: `severity` (INFO / WARNING / ERROR), `issue_type`, `detail`, `needs_llm_review` (1 = a rule could not resolve it), plus the six provenance columns.
