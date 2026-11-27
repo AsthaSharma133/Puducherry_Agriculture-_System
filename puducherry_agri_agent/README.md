@@ -8,7 +8,7 @@ provenance, and answers plain-English questions with the exact source page of ev
 and vector-outline/OCR government PDF tables?* (see `docs/challenge.md`,
 `notebooks/qlora_finetune_eval.ipynb`).
 
-## Quick Start (copy-paste; outputs below were produced by these exact commands on 2026-11-26)
+## Quick Start (copy-paste; outputs below were produced by these exact commands on 2026-11-27)
 
 All commands run from this folder (`puducherry_agri_agent/`), Python 3.11+.
 
@@ -71,31 +71,34 @@ Next: python run.py --run-all
 python run.py --run-all
 ```
 ```
-run 20261126T202201Z-21063a  db=db/puducherry_agri.db  tracing=none
+run 20261127T055617Z-0bf98d  db=db/puducherry_agri.db  tracing=none
   S7  REF  SUCCESS  rows=229   issues=39   1 state, 2 district, 8 subdistrict, 129 village, 4 region; 85 aliases
-  S1  A1   PENDING  rows=0     issues=0    S1 AGMARKNET is Pending by design: CAPTCHA-protected portal and a current-day-only API ...
-  S2  A1   PENDING  rows=0     issues=0    no data/raw/html/S2_mktpric_*.html - agri.py.gov.in blocked from cloud host; ...
-  S3  A2   SUCCESS  rows=1650  issues=97   5 PDFs, 440 pages (386 text-layer, 54 OCR, 0 skipped); 45 table blocks; years 2020-21 ... 2024-25
-  S5  A3   PENDING  rows=0     issues=0    no data/raw/html/S5_schemes_*.html - ...
+  S1  A1   PENDING  rows=0     issues=0    S1 AGMARKNET is Pending by design: CAPTCHA-protected portal and a current-day-only API (documented automation 
+  S2  A1   SUCCESS  rows=75    issues=1    75 commodity-year prices from S2_mktpric_2026-11-27.html
+  S3  A2   SUCCESS  rows=1650  issues=98   5 PDFs, 440 pages (386 text-layer, 54 OCR, 0 skipped); 45 table blocks; years 2020-21, 2021-22, 2022-23, 2023-
+  S5  A3   SUCCESS  rows=44    issues=2    44 scheme rows
   S6  A3   SUCCESS  rows=61    issues=0    58 working + 3 dormant societies; 0 duplicate rows dropped
-  S8  A2   PENDING  rows=0     issues=0    no data/raw/s8/*.pdf - agritech.tnau.ac.in blocked from cloud host; ...
+  S8  A2   PENDING  rows=0     issues=1    HOST_UNREACHABLE: agritech.tnau.ac.in refused/timed out TCP connections for 13 S8 bulletin downloads (also fro
   S4  A2   SKIPPED  rows=0     issues=0    Weekly report archive (2016-2018) is outside Phase 3 scope; S8 replaces it
-  S9  REF  PENDING  rows=0     issues=0    Survey of India boundaries: manual download after SOI sign-in ...
-overall PARTIAL: 1940 rows, 136 issues, 2.48 s
+  S9  REF  SKIPPED  rows=0     issues=0    Survey of India boundaries are a map layer, not extracted into the DB: data/raw/soi/ (SOI index maps via DataM
+overall PARTIAL: 2059 rows, 141 issues, 4.29 s
 ```
 (The first run on a new machine OCRs 54 pages and takes about 2 minutes; results are cached in
 `data/interim/ocr/`.) One source only: `python run.py --source S3`.
 
 **4. Evaluate**
 
+Needs the S3 PDFs from step 3: run `python scripts/fetch_corpus.py` first, otherwise
+`run_eval.py` stops with "The S3 PDFs are not in data/raw/s3/".
+
 ```bash
 python eval/run_eval.py
 ```
 ```
-  A1    n=4   fields=8    P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
+  A1    n=6   fields=12   P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
   A2    n=16  fields=80   P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
-  A3    n=8   fields=48   P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
-  MACRO n=28  fields=136  P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
+  A3    n=12  fields=66   P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
+  MACRO n=34  fields=158  P=1.000 R=1.000 F1=1.000 prov=1.000 tool=1.000 done=1.000
   automation (eval inputs): 1.0  skipped hooks: ['langsmith_upload', 'agentevals_trajectory_match', 'llm_as_judge']
 ```
 
