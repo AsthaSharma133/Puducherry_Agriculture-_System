@@ -64,5 +64,7 @@ Windows). No API keys are needed; optional keys are listed in `puducherry_agri_a
 | QLoRA base vs adapter F1 (RQ2) | Qwen2.5-1.5B-Instruct on 16 held-out S3 cases (Colab T4): base 0.0247 → adapter 0.6625 (ΔF1 +0.6378); OCR pages 0.0328 → 0.6167; text layer 0.0000 → 0.8000 (`eval/adapter_comparison.csv`) |
 | SOI map | `docs/figures/fig_puducherry_soi_map.png`: 4 regions on Survey of India boundaries (DataMeet mirror, CC BY 4.0) |
 
-Sources S2, S5 and S8 are implemented but their hosts refuse connections from outside India, so
-they are PENDING in this build; see `puducherry_agri_agent/docs/extraction_errors.md`.
+S2 and S5 were fetched from a network in India (their host refuses cloud connections) and are loaded.
+Two sources stay PENDING: S8 (agromet bulletins), whose host was unreachable even from India, and
+S1 (AGMARKNET), by design: CAPTCHA-protected portal and a current-day-only API. See
+`puducherry_agri_agent/docs/extraction_errors.md`.

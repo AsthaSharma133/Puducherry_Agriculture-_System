@@ -36,8 +36,9 @@
   every report uses **4 regions**; Mahe (5913) and Yanam (5908) are sub-districts of
   district 600. Spelling variants (`Pondicherry`, `Pondy`, `KKL`, `Mahé`) are resolved with
   `data/aliases.csv`.
-* **Blocked hosts.** `agri.py.gov.in` (S2, S5) and `agritech.tnau.ac.in` (S8) reset
-  connections from the cloud build machine; those sources run only from a network in India.
+* **Blocked hosts.** `agri.py.gov.in` (S2, S5) resets connections from the cloud build machine,
+  so those pages were fetched from a network in India. `agritech.tnau.ac.in` (S8) timed out
+  even from India, so S8 stays PENDING.
 * **Language.** All Puducherry sources used are in English. No Tamil statistical tables were
   found (the Tamil `/ta/` pages of the DES site return 404), so the project makes no claim
   about Tamil table extraction.

@@ -56,8 +56,9 @@ python -m pytest tests/ -q
 python scripts/fetch_corpus.py
 ```
 Downloads the 5 S3 PDFs (30 MB, git-ignored) and the S8 bulletins; re-runnable, skips files already
-present. `agri.py.gov.in` (S2, S5) and `agritech.tnau.ac.in` (S8) refuse connections from non-Indian
-cloud hosts: run it from a network in India for those.
+present. `agri.py.gov.in` (S2, S5) refuses connections from non-Indian cloud hosts: run it from a
+network in India. `agritech.tnau.ac.in` (S8) was unreachable even from India on 2026-11-27, so S8 stays
+PENDING.
 
 ```bash
 python run.py --init-db

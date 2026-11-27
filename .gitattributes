@@ -1,0 +1,5 @@
+# Saved government web pages and test fixtures are data, not code:
+# keep them out of GitHub's language statistics.
+puducherry_agri_agent/data/raw/** linguist-vendored
+puducherry_agri_agent/eval/fixtures/** linguist-vendored
+*.ipynb linguist-detectable=false
