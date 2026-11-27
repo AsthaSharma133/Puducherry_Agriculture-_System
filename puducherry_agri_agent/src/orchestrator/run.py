@@ -58,6 +58,9 @@ def run_source(conn, run_id: str, source: dict, max_attempts: int) -> dict:
             break
         except InputMissing as e:
             log["status"], log["notes"] = "PENDING", str(e)
+            if str(e).startswith("HOST_UNREACHABLE"):
+                log["error_message"] = "HOST_UNREACHABLE"   # source host down, not a code bug
+                issues.append(prov.issue("ERROR", "host_unreachable", str(e)))
             break
         except TRANSIENT as e:
             log["error_message"] = f"{type(e).__name__}: {e}"

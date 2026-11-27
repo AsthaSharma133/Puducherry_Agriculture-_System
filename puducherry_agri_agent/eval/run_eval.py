@@ -2,7 +2,7 @@
 Writes eval/results_summary.json, eval/results_by_agent.csv and eval/results_by_case.csv.
 
 What happens:
-  1. each agent runs on its real input (S3 PDFs, S6 HTML) or synthetic fixture (S2, S5),
+  1. each agent runs on its real input (S3 PDFs, S2/S5/S6 saved HTML pages),
      in memory only - the database is not changed;
   2. every expected field of every case is compared with what the agent produced;
   3. we report field-level Precision / Recall / F1 per agent and macro-averaged, plus
@@ -54,29 +54,32 @@ def run_with_retry(func):
     return None, MAX_ATTEMPTS, time.time() - start, last
 
 
-def source_jobs():
+def source_jobs(cases):
     """List the inputs the evaluation runs: (source_id, documents, function returning AgentResult).
-    S3 and S6 go through the routed agent; S2/S5 use the same parsers on the fixtures."""
+    S3 and S6 go through the routed agent; S2/S5 run the same parsers on the exact saved page
+    named in the cases (so a newer snapshot cannot silently change the test input)."""
     def run_routed(source_id):
         agent = route(source_id)
         return lambda: agent.run({"source_id": source_id}, Provenance(source_id, agent.agent_id, "eval"))
 
+    def case_file(source_id):
+        return PROJECT / next(c["input_file"] for c in cases if c["source_id"] == source_id)
+
     s3_docs = len(list((PROJECT / "data" / "raw" / "s3").glob("S3_SCR_*.pdf")))
-    s2_fix = EVAL_DIR / "fixtures" / "S2_mktpric_synthetic.html"
-    s5_fix = EVAL_DIR / "fixtures" / "S5_schemes_synthetic.html"
+    s2_page, s5_page = case_file("S2"), case_file("S5")
     return [
         ("S3", s3_docs, run_routed("S3")),
         ("S6", 1, run_routed("S6")),
-        ("S2", 1, lambda: parse_s2(s2_fix, Provenance("S2", "A1", "eval"))),
-        ("S5", 1, lambda: parse_s5(s5_fix, Provenance("S5", "A3", "eval"))),
+        ("S2", 1, lambda: parse_s2(s2_page, Provenance("S2", "A1", "eval"))),
+        ("S5", 1, lambda: parse_s5(s5_page, Provenance("S5", "A3", "eval"))),
     ]
 
 
-def run_all_sources():
+def run_all_sources(cases):
     """Run every job once and keep its rows, issues, timing and retry count.
     Returns {source_id: info dict}; a failed source simply has no rows."""
     outputs = {}
-    for source_id, docs, func in source_jobs():
+    for source_id, docs, func in source_jobs(cases):
         result, attempts, seconds, error = run_with_retry(func)
         rows = []
         issues = []
@@ -256,8 +259,8 @@ def blocked_fetches():
     path = PROJECT / "data" / "raw" / "raw_inventory.csv"
     with path.open(encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    failed = [r for r in rows if r["status"] == "FAILED" and "Connection" in r["error"]]
-    return len(failed), len(rows), sum(r["status"] == "OK" for r in rows)
+    failed = [r for r in rows if r["status"] == "FAILED" and re.search(r"Connect|Connection", r["error"])]
+    return len(failed), len(rows), sum(r["status"].startswith("OK") for r in rows)
 
 
 def pipeline_retries():
@@ -358,8 +361,8 @@ def build_summary(cases, case_results, outputs, by_agent):
             "automation_rate_eval_inputs": round(auto_inputs / eval_inputs, 4),
             "corpus_fetch_attempted": attempted_fetch, "corpus_fetch_ok": ok_fetch,
             "automation_rate_corpus_fetch": round(ok_fetch / attempted_fetch, 4),
-            "note": "corpus fetch failures are hosts that reset connections from the build "
-                    "machine (S2, S5, S8); they work from a network in India"},
+            "note": "all corpus fetch failures are S8: agritech.tnau.ac.in was unreachable "
+                    "(TCP connect timeout) even from India on 2026-11-27 - HOST_UNREACHABLE"},
         "retries": {"eval_run": sum(o["attempts"] - 1 for o in outputs.values()),
                     "latest_pipeline_run": pipeline_retries()},
         "latency_s_per_document": {s: round(o["seconds"] / o["documents"], 3) for s, o in outputs.items()},
@@ -383,7 +386,7 @@ def main():
         return 1
     cases = json.loads((EVAL_DIR / "eval_set.json").read_text(encoding="utf-8"))["cases"]
     print(f"Evaluating {len(cases)} cases")
-    outputs = run_all_sources()
+    outputs = run_all_sources(cases)
     case_results = [score_case(c, outputs[c["source_id"]]["rows"], route(c["source_id"]).agent_id)
                     for c in cases]
     by_agent = agent_table(case_results, outputs)

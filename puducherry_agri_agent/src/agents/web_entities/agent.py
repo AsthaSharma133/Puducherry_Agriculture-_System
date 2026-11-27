@@ -17,8 +17,14 @@ from ...normalizer.lgd import AliasResolver
 from ...normalizer.units import to_number
 from ..base import Agent, AgentResult, InputMissing
 
-AMOUNT_RX = re.compile(r"(?:Rs\.?|₹)\s*([\d,]+(?:\.\d+)?)\s*(?:/-)?\s*(?:per|/)?\s*(acre|ha|hectare|unit|no)?",
-                       re.I)
+# 'Rs.5000/acre', 'Rs.2000/- acre', 'Rs12,500/- per ha', 'Rs.6,250/-- per ha', 'Rs.1.50 lakhs per Tube well'
+AMOUNT_RX = re.compile(r"(?:Rs\.?|₹)\s*([\d,]+(?:\.\d+)?)\s*(lakhs?)?\s*(?:/-+)?\s*(?:per\s+|/)?\s*"
+                       r"(acre|hectare|ha|cent|palm|tube\s*well|demonstration|group|block|"
+                       r"farm\s*school|unit|no)?\b", re.I)
+BASIS = {"acre": "per acre", "ha": "per ha", "hectare": "per ha", "unit": "per unit", "no": "per unit"}
+# 'Subsidy for Paddy production', 'for new area under cashew cultivation', 'cultivation of Water melons @'
+CROP_RX = re.compile(r"for (?:new area under )?([A-Za-z ]+?) (?:production|cultivation)\b"
+                     r"|cultivation of ([A-Za-z ]+?)(?:\s*@|\s+like|\s+in\b)", re.I)
 
 
 class WebEntityAgent(Agent):
@@ -89,38 +95,58 @@ def parse_s6(path, prov) -> AgentResult:
                                              f"societies; {len(dropped)} duplicate rows dropped")
 
 
-def parse_s5(path, prov) -> AgentResult:
-    """Each table row with a rupee amount becomes a scheme row (page is undated -> valid_from)."""
-    soup = BeautifulSoup(path.read_text(encoding="utf-8", errors="replace"), "html.parser")
-    snapshot_date = re.search(r"(\d{4}-\d{2}-\d{2})", path.name)
-    valid_from = snapshot_date.group(1) if snapshot_date else datetime.now().date().isoformat()
-    rows, issues, src = [], [], rel(path)
+def scheme_items(soup):
+    """Yield (where, category, name, text) for every candidate scheme on the page.
+    The live page (checked 2026-11-27) has NO <table>: schemes are <li> items inside <ol>,
+    each list starting with a <label><strong>Category</strong></label>. Older layouts and
+    the test fixture use table rows, so both are read."""
     for t_i, table in enumerate(soup.find_all("table")):
         category = _section_heading(table)
         for r_i, tr in enumerate(table.find_all("tr"), start=1):
             cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
             text = " | ".join(c for c in cells if c)
-            m = AMOUNT_RX.search(text)
-            if not m:
-                continue
-            amount, _ = to_number(m.group(1))
-            basis = {"acre": "per acre", "ha": "per ha", "hectare": "per ha", "unit": "per unit",
-                     "no": "per unit"}.get((m.group(2) or "").lower(), "unspecified")
-            period = "per season" if re.search(r"season", text, re.I) else (
-                "per year" if re.search(r"year|annum", text, re.I) else None)
-            name = next((c for c in cells if c and not re.fullmatch(r"\d+\.?", c)), text)[:200]
-            rows.append(prov.row(src, f"table {t_i + 1} row {r_i}", scheme_name=name,
-                                 category=category or None, crop=None,
-                                 assistance_amount_rs=amount, amount_basis=basis,
-                                 period_basis=period, description=text[:1000],
-                                 valid_from=valid_from))
+            name = next((c for c in cells if c and not re.fullmatch(r"\d+\.?", c)), text)
+            yield f"table {t_i + 1} row {r_i}", category, name, text
+    for l_i, ol in enumerate(soup.find_all("ol"), start=1):
+        label = ol.find("label")
+        category = label.get_text(" ", strip=True) if label else ""
+        for i_i, li in enumerate(ol.find_all("li"), start=1):
+            lines = [x.strip() for x in li.get_text("\n").split("\n") if x.strip()]
+            text = " ".join(" ".join(lines).split()).lstrip("> ")   # one item starts with a stray '>'
+            name = re.split(r"\s*Eligibility\s*[–-]", lines[0].lstrip("> ") if lines else text)[0]
+            yield f"list {l_i} item {i_i}", category, name.strip(), text
+
+
+def parse_s5(path, prov) -> AgentResult:
+    """Each scheme (list item or table row) with a rupee amount becomes a scheme row.
+    The page is undated, so the snapshot date is stored as valid_from."""
+    soup = BeautifulSoup(path.read_text(encoding="utf-8", errors="replace"), "html.parser")
+    snapshot_date = re.search(r"(\d{4}-\d{2}-\d{2})", path.name)
+    valid_from = snapshot_date.group(1) if snapshot_date else datetime.now().date().isoformat()
+    rows, issues, src = [], [], rel(path)
+    for where, category, name, text in scheme_items(soup):
+        m = AMOUNT_RX.search(text)
+        if not m:
+            continue
+        amount, _ = to_number(m.group(1))
+        if amount is not None and m.group(2):          # 'Rs.1.50 lakhs' -> 150000
+            amount = round(amount * 100000, 2)
+        word = re.sub(r"\s+", " ", (m.group(3) or "").lower())
+        basis = BASIS.get(word, f"per {word}" if word else "unspecified")
+        period = "per season" if re.search(r"season", text, re.I) else (
+            "per year" if re.search(r"per\s+(year|annum)", text, re.I) else None)
+        c = CROP_RX.search(name)
+        crop = (c.group(1) or c.group(2)).strip().capitalize() if c else None
+        rows.append(prov.row(src, where, scheme_name=name[:200], category=category or None,
+                             crop=crop, assistance_amount_rs=amount, amount_basis=basis,
+                             period_basis=period, description=text[:1000], valid_from=valid_from))
     rows, dropped = dedupe(rows, ["scheme_name", "description"])
     for d in dropped:
         issues.append(prov.issue("INFO", "duplicate_dropped", d["scheme_name"], src, d["page_or_table"]))
     if rows:
         issues.append(prov.issue("INFO", "llm_structuring_candidate",
-                                 "Scheme rows keep the full row text in `description`; crop and "
-                                 "eligibility fields are left for the LLM structurer", src,
+                                 "Scheme rows keep the full item text (with eligibility) in "
+                                 "`description`; only the first rupee amount is structured", src,
                                  needs_llm_review=True))
     return AgentResult("SUCCESS" if rows else "FAILED", {"schemes": rows}, issues, inputs_found=1,
                        notes=f"{len(rows)} scheme rows")

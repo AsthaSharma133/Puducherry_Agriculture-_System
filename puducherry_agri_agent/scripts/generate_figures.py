@@ -58,10 +58,12 @@ def fig_extraction_f1():
     ax.set_ylabel("Field-level score")
     ax.yaxis.grid(True, color=GRID)
     ax.set_axisbelow(True)
-    ax.set_title("Extraction accuracy on eval/eval_set.json (28 cases, 136 fields)", loc="left")
+    n_cases = sum(int(r["n_cases"]) for r in rows)
+    n_fields = sum(int(r["n_fields"]) for r in rows)
+    ax.set_title(f"Extraction accuracy on eval/eval_set.json ({n_cases} cases, {n_fields} fields)", loc="left")
     ax.legend(loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.0))
-    fig.text(0.01, -0.04, "A1 = S2 prices (synthetic fixture), A2 = S3 PDF tables (12 OCR + 4 text-layer "
-             "columns), A3 = S6 co-ops (real) + S5 schemes (synthetic)", fontsize=10, color=INK_2)
+    fig.text(0.01, -0.04, "All cases real: A1 = S2 prices (live page), A2 = S3 PDF tables (12 OCR + 4 "
+             "text-layer columns), A3 = S6 co-ops + S5 schemes (live pages)", fontsize=10, color=INK_2)
     save(fig, "fig_extraction_f1.png")
 
 

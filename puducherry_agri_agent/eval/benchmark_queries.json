@@ -71,7 +71,7 @@
       "question": "How many working and dormant co-operative societies are in each region?",
       "expected_intent": "coop",
       "expect_in_answer": ["61 credit co-operative societies", "Puducherry 49 working + 3 dormant", "Karaikal 7 working + 0 dormant", "Mahe 2 working + 0 dormant", "Yanam 0 working"],
-      "expect_provenance": {"source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html", "page_or_table_contains": "table 1 (working)"},
+      "expect_provenance": {"source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html", "page_or_table_contains": "table 1 (working)"},
       "verified_against": "Saved S6 HTML: working table 58 rows (Pondy 49, Karaikal 7, Mahe 2), dormant table 3 rows (Pondy)"
     },
     {

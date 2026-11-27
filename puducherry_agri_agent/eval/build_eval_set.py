@@ -1,4 +1,4 @@
-"""Write eval/eval_set.json: 28 hand-checked test cases for agents A1, A2 and A3.
+"""Write eval/eval_set.json: 34 hand-checked test cases for agents A1, A2 and A3.
 Expected values below are typed in by hand from the source documents, never copied from the DB.
 
 How the S3 (A2) ground truth was checked (2026-11-26):
@@ -19,11 +19,25 @@ from table_text import block_text, instruction
 EVAL_DIR = Path(__file__).resolve().parent
 CHECKED_BY = ("AI-assisted check (Claude Code, 2026-11-26): page render + summary table; "
               "human re-check by Evaluation Lead: pending")
+CHECKED_BY_HTML = ("AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; "
+                   "human re-check by Evaluation Lead: pending")
+
+
+def frozen_model_inputs():
+    """Model input text of the A2 cases already in eval_set.json, keyed by case id.
+    OCR output differs slightly between Tesseract builds (Linux vs Windows), and the QLoRA
+    notebook results were scored on the first text, so an existing model_input is kept."""
+    path = EVAL_DIR / "eval_set.json"
+    if not path.exists():
+        return {}
+    cases = json.loads(path.read_text(encoding="utf-8"))["cases"]
+    return {c["case_id"]: c["model_input"] for c in cases if c["agent"] == "A2"}
 S3_2122 = "data/raw/s3/S3_SCR_2021-22.pdf"
 S3_2425 = "data/raw/s3/S3_SCR_2024-25.pdf"
-S6_HTML = "data/raw/html/S6_credit_coop_societies_2026-11-26.html"
-S2_FIX = "eval/fixtures/S2_mktpric_synthetic.html"
-S5_FIX = "eval/fixtures/S5_schemes_synthetic.html"
+S6_HTML = "data/raw/html/S6_credit_coop_societies_2026-11-27.html"
+S2_HTML = "data/raw/html/S2_mktpric_2026-11-27.html"
+S5_HTML = "data/raw/html/S5_schemes_2026-11-27.html"
+FROZEN = {}   # filled in main() from the existing eval_set.json
 METRIC = {"IV-A": ("area_ha", "ha"), "V-A": ("yield_value", "kg/ha"),
           "V-B": ("production_value", "tonnes")}
 
@@ -67,6 +81,7 @@ def s3_case(n, spec):
     path, page, table, col, first_col, label, crop, values, summary = spec
     year = Path(path).stem.replace("S3_SCR_", "")
     text, method = block_text(Path(__file__).resolve().parents[1] / path, page, first_col)
+    text = FROZEN.get(f"A2-{n:02d}", text)
     metric, unit = METRIC[table]
     if crop == "Coconut" and table == "V-A":
         unit = "nuts/ha"
@@ -114,50 +129,72 @@ def s6_case(n, spec):
     }
 
 
-def fixture_cases():
-    """Return the A1 (S2 prices) and A3 (S5 schemes) cases on the synthetic fixtures.
-    Their expected values are the numbers typed into eval/fixtures/*.html."""
-    s2 = [("2014-15", "Paddy", "I", 1155.0, "Rs/quintal", 2),
-          ("2012-13", "Paddy", "II", 1033.0, "Rs/quintal", 3),
-          ("2013-14", "Canegur", "", None, "Rs/quintal", 5),
-          ("2011-12", "Coconut", "", 5122.0, "Rs/1000 nuts", 6)]
+# S2 values typed from the live table (https://agri.py.gov.in/mktpric.html, saved 2026-11-27).
+# Row numbers count every <tr>: row 1 = header, row 2 = the '1. 2. 3. ...' column-number row.
+# (period, commodity, variety, price, unit, table row, why this cell is a good test)
+S2_CASES = [
+    ("2014-15", "Paddy", "I", 1947.64, "Rs/quintal", 3, "printed 'Paddy - I sort', unit 'Qtl'"),
+    ("2012-13", "Paddy", "II", 1394.88, "Rs/quintal", 4, "unit printed as ',,' (ditto)"),
+    ("2013-14", "Canegur", "I", None, "Rs/quintal", 12, "0 printed -> must be stored as NULL"),
+    ("2011-12", "Coconut", "", 6908.33, "Rs/1000 nuts", 17, "unit '1000 nuts'"),
+    ("2010-11", "Onion", "Dindigul", 2667.92, "Rs/quintal", 14, "variety after ' - '"),
+    ("2014-15", "Greengram", "", 9114.25, "Rs/quintal", 9, "no variety, ditto unit"),
+]
+
+# S5 values typed from the live list (https://agri.py.gov.in/schemes.html, saved 2026-11-27).
+# The page has no <table>: each scheme is <li> number `item` of <ol> number `list`.
+# (text that identifies the scheme, crop, amount Rs, basis, period, list, item)
+S5_CASES = [
+    ("Subsidy for Paddy production", "Paddy", 5000.0, "per acre", "per season", 1, 1),
+    ("Subsidy for Pulses production", "Pulses", 2000.0, "per acre", None, 1, 3),
+    ("new area under cashew", "Cashew", 50000.0, "per ha", None, 2, 13),
+    ("construction of Tube well not exceeding", None, 150000.0, "per tube well", None, 3, 1),
+    ("Kisan Gosthies", None, 15000.0, "per block", "per season", 4, 8),
+    ("conduct farm schools", None, 29414.0, "per farm school", None, 4, 9),
+]
+
+
+def real_html_cases():
+    """Return the A1 (S2 prices) and A3 (S5 schemes) cases on the real saved pages.
+    Expected values were typed from the pages themselves, not from the pipeline output."""
     cases = []
-    for i, (period, com, var, price, unit, row) in enumerate(s2, start=1):
+    for i, (period, com, var, price, unit, row, why) in enumerate(S2_CASES, start=1):
         cases.append({
-            "case_id": f"A1-{i:02d}", "agent": "A1", "source_id": "S2", "synthetic": True,
-            "input_type": "html_table", "input_file": S2_FIX,
+            "case_id": f"A1-{i:02d}", "agent": "A1", "source_id": "S2", "synthetic": False,
+            "input_type": "html_table", "input_file": S2_HTML,
             "match": {"period": period, "commodity": com, "variety": var},
             "expected_tool": "bs4_html_table",
             "expected": {"price_value": price, "price_unit": unit},
-            "expected_provenance": {"source_file_or_url": S2_FIX,
+            "expected_provenance": {"source_file_or_url": S2_HTML,
                                     "page_or_table": f"table 1 row {row} col {period}"},
-            "verification": "Synthetic fixture value" + (" (0 printed -> must be stored as NULL)"
-                                                         if price is None else ""),
-            "checked_by": CHECKED_BY})
-    s5 = [("Paddy", 5000.0, "per acre", "per season", 2), ("Pulses", 2000.0, "per acre", None, 3)]
-    for i, (crop, amount, basis, period, row) in enumerate(s5, start=7):
+            "verification": f"Read from the saved live page: {why}",
+            "checked_by": CHECKED_BY_HTML})
+    for i, (text, crop, amount, basis, period, lst, item) in enumerate(S5_CASES, start=len(S6_CASES) + 1):
         cases.append({
-            "case_id": f"A3-{i:02d}", "agent": "A3", "source_id": "S5", "synthetic": True,
-            "input_type": "html_table", "input_file": S5_FIX,
-            "match": {"scheme_name_contains": crop}, "expected_tool": "bs4_html_table",
-            "expected": {"assistance_amount_rs": amount, "amount_basis": basis,
+            "case_id": f"A3-{i:02d}", "agent": "A3", "source_id": "S5", "synthetic": False,
+            "input_type": "html_list", "input_file": S5_HTML,
+            "match": {"scheme_name_contains": text}, "expected_tool": "bs4_html_table",
+            "expected": {"crop": crop, "assistance_amount_rs": amount, "amount_basis": basis,
                          "period_basis": period},
-            "expected_provenance": {"source_file_or_url": S5_FIX, "page_or_table": f"table 1 row {row}"},
-            "verification": "Synthetic fixture layout; amounts as recorded for S5 in data/manifest.csv",
-            "checked_by": CHECKED_BY})
+            "expected_provenance": {"source_file_or_url": S5_HTML,
+                                    "page_or_table": f"list {lst} item {item}"},
+            "verification": "Read from the saved live page (first rupee amount of the item)",
+            "checked_by": CHECKED_BY_HTML})
     return cases
 
 
 def main():
     """Assemble all cases and write eval/eval_set.json (pretty-printed, stable order).
     Prints how many cases each agent got."""
+    global FROZEN
+    FROZEN = frozen_model_inputs()
     cases = [s3_case(i, spec) for i, spec in enumerate(S3_CASES, start=1)]
     cases += [s6_case(i, spec) for i, spec in enumerate(S6_CASES, start=1)]
-    cases += fixture_cases()
-    out = {"name": "Team 35 Puducherry Phase 3 evaluation set", "created": "2026-11-26",
+    cases += real_html_cases()
+    out = {"name": "Team 35 Puducherry Phase 3 evaluation set", "created": "2026-11-27",
            "notes": "A2 = real S3 PDF columns (2021-22 OCR pages + 2024-25 text layer); "
-                    "A3 = real S6 rows + synthetic S5 fixture; A1 = synthetic S2 fixture "
-                    "(S2/S5 hosts are blocked from the build machine).",
+                    "A3 = real S6 rows + real S5 list items; A1 = real S2 table cells "
+                    "(S2/S5 pages saved from India on 2026-11-27). No synthetic cases.",
            "cases": cases}
     path = EVAL_DIR / "eval_set.json"
     path.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

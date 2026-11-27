@@ -184,13 +184,23 @@ def blocks_from_ocr(text: str, year: str, table: str, page_no: int, issues: list
         region = _region_of(toks[k])
         vals = []
         for t in toks[k + 1:]:
-            if t in ("()", ")", "(", "0)", "(0", "(0)", "o)", "O)"):
+            # a printed '0' comes back as '0)', '()', ')' ... and on Tesseract 5.4 (Windows)
+            # also as 'f°)' or '¢)': any token ending in ')' with no digit 1-9 is a zero
+            if t in ("(", "(0", "(0)") or (t.endswith(")") and not re.search(r"[1-9]", t)):
                 issues.append(("INFO", "ocr_char_fix", f"{table} {region}: {t!r} read as '0'",
                                f"p{page_no} {table}"))
                 vals.append("0")
                 continue
             t2 = t.strip(".,;:_|()")
             if not t2:
+                continue
+            if re.fullmatch(r"\d+[-–]\d+", t2):
+                # two cells glued by a left-over ruling line, e.g. '33-895' -> 33, 895
+                # (a nil cell is a lone '-', so a dash between digits is never a value)
+                parts = re.split(r"[-–]", t2)
+                issues.append(("INFO", "ocr_char_fix", f"{table} {region}: {t2!r} split into {parts}",
+                               f"p{page_no} {table}"))
+                vals += parts
                 continue
             if not re.fullmatch(r"[\d,.\-–]+", t2) and re.search(r"\d", t2):
                 fixed = t2.translate(_OCR_FIX)

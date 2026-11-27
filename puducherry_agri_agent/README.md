@@ -128,16 +128,16 @@ offline and gives the same results.
 
 ## What the numbers mean (honest reading)
 
-* **Evaluation set** (`eval/eval_set.json`): 28 cases, 136 fields. 22 are real (12 columns from the
-  2021-22 vector-outline pages read by OCR, 4 from 2024-25, 6 S6 co-op rows); 6 use synthetic S2/S5
-  fixtures because those hosts are blocked from the build machine. S3 ground truth was read from
+* **Evaluation set** (`eval/eval_set.json`): 34 cases, 158 fields, all real (12 columns from the
+  2021-22 vector-outline pages read by OCR, 4 from 2024-25, 6 S6 co-op rows, 6 S2 price cells and
+  6 S5 scheme items from the live pages saved from India on 2026-11-27). S3 ground truth was read from
   page renders and re-checked against each report's own 5-year summary table
   (`python eval/verify_ground_truth.py`).
 * The evaluation **found a real bug**: A3 stored the region text in `coop_societies.reg_no`
   (A3 F1 0.875 before the fix, 1.000 after; `docs/extraction_errors.md` E1).
-* F1 = 1.000 is for the deterministic parsers on this small set; it does not cover the blocked
-  live S2/S5/S8 pages. Automation: 8/8 evaluation inputs fully automatic; 6/21 corpus downloads
-  succeed from the cloud host (15 blocked by S2/S5/S8 hosts).
+* F1 = 1.000 is for the deterministic parsers on this small set. S8 is not covered: its host
+  (`agritech.tnau.ac.in`) was unreachable even from India (`HOST_UNREACHABLE`). Automation: 8/8
+  evaluation inputs fully automatic; 8/21 corpus downloads succeed (the 13 failures are all S8).
 * QLoRA (RQ2) base vs adapter F1 is produced by the Colab notebook (needs a GPU) and saved to
   `eval/adapter_comparison.csv`; no adapter numbers are claimed before that run.
 

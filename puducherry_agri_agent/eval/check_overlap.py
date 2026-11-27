@@ -46,6 +46,11 @@ def check_no_overlap():
     train_pages = {(k[0], k[1]) for k in train}
     test_pages = {(k[0], k[1]) for k in test}
     assert not (train_pages & test_pages), f"pages used in both: {train_pages & test_pages}"
+    # HTML / bulletin test files (S2, S5, S6, S8) must never appear in training at all
+    train_files = {k[0] for k in train}
+    cases = json.loads((EVAL_DIR / "eval_set.json").read_text(encoding="utf-8"))["cases"]
+    html_files = {c["input_file"] for c in cases if c["agent"] != "A2"}
+    assert not (train_files & html_files), f"files used in both: {train_files & html_files}"
     return {"train_keys": len(train), "test_keys": len(test), "overlap": 0,
             "train_years": sorted(train_years), "test_years": sorted(test_years)}
 

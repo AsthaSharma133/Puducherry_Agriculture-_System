@@ -13,7 +13,7 @@
 | `src/common/` | Shared paths, the SQLite helpers (schema, replace-a-source's-rows in one transaction), the 6 provenance columns, and optional LangSmith tracing. |
 | `db/schema.sql` | 9 tables: 7 data tables (each with source_id, source_file_or_url, page_or_table, agent_id, run_id, extracted_at) plus `pipeline_runs` and `extraction_issues`. UNIQUE keys stop duplicates. |
 | `app/query_engine.py` | Answers questions: keyword rules choose the intent (value, compare, trend, provenance, coop, lgd), `location_aliases` finds regions, and a parameterised SQL query returns the answer with its SQL and provenance. An LLM is asked only if no rule matches and a key is set. |
-| `eval/` | `eval_set.json` (28 hand-checked cases), `run_eval.py` (P/R/F1, provenance, tool choice, automation, errors), `benchmark_queries.json` + `run_queries.py` (10 live queries), `qlora_train.jsonl` + `check_overlap.py` (zero train/test overlap). `verify_ground_truth.py` re-checks S3 answers against the reports' own summary tables. |
+| `eval/` | `eval_set.json` (34 hand-checked real cases), `run_eval.py` (P/R/F1, provenance, tool choice, automation, errors), `benchmark_queries.json` + `run_queries.py` (10 live queries), `qlora_train.jsonl` + `check_overlap.py` (zero train/test overlap). `verify_ground_truth.py` re-checks S3 answers against the reports' own summary tables. |
 | `notebooks/qlora_finetune_eval.ipynb` | Colab T4: base Qwen2.5-1.5B vs a 4-bit QLoRA adapter (r=16, α=32) on the held-out OCR cases (RQ2). Writes `eval/adapter_comparison.csv`. |
 | `tests/` | 41 pytest checks: schema and provenance, LGD/alias rules, zero overlap, real S3 text/OCR and S6 extraction, all 10 queries. |
 

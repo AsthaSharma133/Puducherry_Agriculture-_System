@@ -12,12 +12,13 @@ Pages without a text layer fall back to OCR text stored as one 'other' row for r
 """
 from __future__ import annotations
 
+import csv
 import re
 from pathlib import Path
 
 import pymupdf
 
-from ...common.config import rel
+from ...common.config import RAW, rel
 from ...normalizer.lgd import AliasResolver
 from ...normalizer.units import to_number
 from ..base import AgentResult, InputMissing
@@ -39,10 +40,25 @@ def _param(label: str):
     return None
 
 
+def unreachable_downloads() -> int:
+    """How many S8 downloads in data/raw/raw_inventory.csv failed because the host could not
+    be reached at all (connect timeout / refused / reset), as opposed to a bad file."""
+    path = RAW / "raw_inventory.csv"
+    if not path.exists():
+        return 0
+    with path.open(encoding="utf-8") as f:
+        return sum(1 for r in csv.DictReader(f) if r["source_id"] == "S8" and r["status"] == "FAILED"
+                   and re.search(r"Connect|Connection|Timeout", r["error"]))
+
+
 def parse_bulletins(pdfs: list[Path], prov) -> AgentResult:
     if not pdfs:
-        raise InputMissing("no data/raw/s8/*.pdf - agritech.tnau.ac.in blocked from cloud host; "
-                           "run scripts/fetch_corpus.py from India")
+        n = unreachable_downloads()
+        if n:
+            raise InputMissing(f"HOST_UNREACHABLE: agritech.tnau.ac.in refused/timed out TCP "
+                               f"connections for {n} S8 bulletin downloads (also from India, "
+                               f"2026-11-27); re-run scripts/fetch_corpus.py when the host is back")
+        raise InputMissing("no data/raw/s8/*.pdf - run scripts/fetch_corpus.py")
     resolver = AliasResolver()
     rows, issues = [], []
     for pdf in pdfs:

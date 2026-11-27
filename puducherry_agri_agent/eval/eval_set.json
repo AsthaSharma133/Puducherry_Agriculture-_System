@@ -1,7 +1,7 @@
 {
   "name": "Team 35 Puducherry Phase 3 evaluation set",
-  "created": "2026-11-26",
-  "notes": "A2 = real S3 PDF columns (2021-22 OCR pages + 2024-25 text layer); A3 = real S6 rows + synthetic S5 fixture; A1 = synthetic S2 fixture (S2/S5 hosts are blocked from the build machine).",
+  "created": "2026-11-27",
+  "notes": "A2 = real S3 PDF columns (2021-22 OCR pages + 2024-25 text layer); A3 = real S6 rows + real S5 list items; A1 = real S2 table cells (S2/S5 pages saved from India on 2026-11-27). No synthetic cases.",
   "cases": [
     {
       "case_id": "A2-01",
@@ -617,7 +617,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "Pondicherry Co-operative Urban Bank"
       },
@@ -632,7 +632,7 @@
         "status": "working"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 1 (working) row 2"
       },
       "verification": "Row Sl.No 1 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -644,7 +644,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "The Karaikal Central Co-operative Processing Supply & Marketing Society Ltd."
       },
@@ -659,7 +659,7 @@
         "status": "working"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 1 (working) row 3"
       },
       "verification": "Row Sl.No 2 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -671,7 +671,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "Thirunallar Primary Agricultural Co-operative Credit Society"
       },
@@ -686,7 +686,7 @@
         "status": "working"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 1 (working) row 14"
       },
       "verification": "Row Sl.No 13 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -698,7 +698,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "Mahe Service Co-operative Credit Society"
       },
@@ -713,7 +713,7 @@
         "status": "working"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 1 (working) row 55"
       },
       "verification": "Row Sl.No 54 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -725,7 +725,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "Mahe Urban Co-operative Society"
       },
@@ -740,7 +740,7 @@
         "status": "working"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 1 (working) row 58"
       },
       "verification": "Row Sl.No 57 of the working table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -752,7 +752,7 @@
       "source_id": "S6",
       "synthetic": false,
       "input_type": "html_table",
-      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+      "input_file": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
       "match": {
         "name": "Siddhivinayagar Farmers Service Co-operative Society"
       },
@@ -767,7 +767,7 @@
         "status": "dormant"
       },
       "expected_provenance": {
-        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-26.html",
+        "source_file_or_url": "data/raw/html/S6_credit_coop_societies_2026-11-27.html",
         "page_or_table": "table 2 (dormant) row 2"
       },
       "verification": "Row Sl.No 1 of the dormant table read from the saved HTML (<td> cells checked by eye); LGD codes from data/aliases.csv",
@@ -777,9 +777,9 @@
       "case_id": "A1-01",
       "agent": "A1",
       "source_id": "S2",
-      "synthetic": true,
+      "synthetic": false,
       "input_type": "html_table",
-      "input_file": "eval/fixtures/S2_mktpric_synthetic.html",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
       "match": {
         "period": "2014-15",
         "commodity": "Paddy",
@@ -787,23 +787,23 @@
       },
       "expected_tool": "bs4_html_table",
       "expected": {
-        "price_value": 1155.0,
+        "price_value": 1947.64,
         "price_unit": "Rs/quintal"
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S2_mktpric_synthetic.html",
-        "page_or_table": "table 1 row 2 col 2014-15"
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 3 col 2014-15"
       },
-      "verification": "Synthetic fixture value",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page: printed 'Paddy - I sort', unit 'Qtl'",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     },
     {
       "case_id": "A1-02",
       "agent": "A1",
       "source_id": "S2",
-      "synthetic": true,
+      "synthetic": false,
       "input_type": "html_table",
-      "input_file": "eval/fixtures/S2_mktpric_synthetic.html",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
       "match": {
         "period": "2012-13",
         "commodity": "Paddy",
@@ -811,27 +811,27 @@
       },
       "expected_tool": "bs4_html_table",
       "expected": {
-        "price_value": 1033.0,
+        "price_value": 1394.88,
         "price_unit": "Rs/quintal"
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S2_mktpric_synthetic.html",
-        "page_or_table": "table 1 row 3 col 2012-13"
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 4 col 2012-13"
       },
-      "verification": "Synthetic fixture value",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page: unit printed as ',,' (ditto)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     },
     {
       "case_id": "A1-03",
       "agent": "A1",
       "source_id": "S2",
-      "synthetic": true,
+      "synthetic": false,
       "input_type": "html_table",
-      "input_file": "eval/fixtures/S2_mktpric_synthetic.html",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
       "match": {
         "period": "2013-14",
         "commodity": "Canegur",
-        "variety": ""
+        "variety": "I"
       },
       "expected_tool": "bs4_html_table",
       "expected": {
@@ -839,19 +839,19 @@
         "price_unit": "Rs/quintal"
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S2_mktpric_synthetic.html",
-        "page_or_table": "table 1 row 5 col 2013-14"
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 12 col 2013-14"
       },
-      "verification": "Synthetic fixture value (0 printed -> must be stored as NULL)",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page: 0 printed -> must be stored as NULL",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     },
     {
       "case_id": "A1-04",
       "agent": "A1",
       "source_id": "S2",
-      "synthetic": true,
+      "synthetic": false,
       "input_type": "html_table",
-      "input_file": "eval/fixtures/S2_mktpric_synthetic.html",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
       "match": {
         "period": "2011-12",
         "commodity": "Coconut",
@@ -859,61 +859,207 @@
       },
       "expected_tool": "bs4_html_table",
       "expected": {
-        "price_value": 5122.0,
+        "price_value": 6908.33,
         "price_unit": "Rs/1000 nuts"
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S2_mktpric_synthetic.html",
-        "page_or_table": "table 1 row 6 col 2011-12"
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 17 col 2011-12"
       },
-      "verification": "Synthetic fixture value",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page: unit '1000 nuts'",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A1-05",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2010-11",
+        "commodity": "Onion",
+        "variety": "Dindigul"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 2667.92,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 14 col 2010-11"
+      },
+      "verification": "Read from the saved live page: variety after ' - '",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A1-06",
+      "agent": "A1",
+      "source_id": "S2",
+      "synthetic": false,
+      "input_type": "html_table",
+      "input_file": "data/raw/html/S2_mktpric_2026-11-27.html",
+      "match": {
+        "period": "2014-15",
+        "commodity": "Greengram",
+        "variety": ""
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "price_value": 9114.25,
+        "price_unit": "Rs/quintal"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S2_mktpric_2026-11-27.html",
+        "page_or_table": "table 1 row 9 col 2014-15"
+      },
+      "verification": "Read from the saved live page: no variety, ditto unit",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     },
     {
       "case_id": "A3-07",
       "agent": "A3",
       "source_id": "S5",
-      "synthetic": true,
-      "input_type": "html_table",
-      "input_file": "eval/fixtures/S5_schemes_synthetic.html",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
       "match": {
-        "scheme_name_contains": "Paddy"
+        "scheme_name_contains": "Subsidy for Paddy production"
       },
       "expected_tool": "bs4_html_table",
       "expected": {
+        "crop": "Paddy",
         "assistance_amount_rs": 5000.0,
         "amount_basis": "per acre",
         "period_basis": "per season"
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S5_schemes_synthetic.html",
-        "page_or_table": "table 1 row 2"
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 1 item 1"
       },
-      "verification": "Synthetic fixture layout; amounts as recorded for S5 in data/manifest.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     },
     {
       "case_id": "A3-08",
       "agent": "A3",
       "source_id": "S5",
-      "synthetic": true,
-      "input_type": "html_table",
-      "input_file": "eval/fixtures/S5_schemes_synthetic.html",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
       "match": {
-        "scheme_name_contains": "Pulses"
+        "scheme_name_contains": "Subsidy for Pulses production"
       },
       "expected_tool": "bs4_html_table",
       "expected": {
+        "crop": "Pulses",
         "assistance_amount_rs": 2000.0,
         "amount_basis": "per acre",
         "period_basis": null
       },
       "expected_provenance": {
-        "source_file_or_url": "eval/fixtures/S5_schemes_synthetic.html",
-        "page_or_table": "table 1 row 3"
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 1 item 3"
       },
-      "verification": "Synthetic fixture layout; amounts as recorded for S5 in data/manifest.csv",
-      "checked_by": "AI-assisted check (Claude Code, 2026-11-26): page render + summary table; human re-check by Evaluation Lead: pending"
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A3-09",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "new area under cashew"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": "Cashew",
+        "assistance_amount_rs": 50000.0,
+        "amount_basis": "per ha",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 2 item 13"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A3-10",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "construction of Tube well not exceeding"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 150000.0,
+        "amount_basis": "per tube well",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 3 item 1"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A3-11",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "Kisan Gosthies"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 15000.0,
+        "amount_basis": "per block",
+        "period_basis": "per season"
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 4 item 8"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
+    },
+    {
+      "case_id": "A3-12",
+      "agent": "A3",
+      "source_id": "S5",
+      "synthetic": false,
+      "input_type": "html_list",
+      "input_file": "data/raw/html/S5_schemes_2026-11-27.html",
+      "match": {
+        "scheme_name_contains": "conduct farm schools"
+      },
+      "expected_tool": "bs4_html_table",
+      "expected": {
+        "crop": null,
+        "assistance_amount_rs": 29414.0,
+        "amount_basis": "per farm school",
+        "period_basis": null
+      },
+      "expected_provenance": {
+        "source_file_or_url": "data/raw/html/S5_schemes_2026-11-27.html",
+        "page_or_table": "list 4 item 9"
+      },
+      "verification": "Read from the saved live page (first rupee amount of the item)",
+      "checked_by": "AI-assisted check (Claude Code, 2026-11-27): values typed from the saved live page; human re-check by Evaluation Lead: pending"
     }
   ]
 }

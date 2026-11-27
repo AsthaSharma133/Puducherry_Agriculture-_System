@@ -2,7 +2,7 @@
 
 | File | What it is |
 |---|---|
-| `eval_set.json` | 28 hand-checked test cases: A2 = 16 real S3 table columns (12 from the 2021-22 vector-outline/OCR pages, 4 from 2024-25), A3 = 6 real S6 society rows + 2 synthetic S5 rows, A1 = 4 synthetic S2 rows. Each case has `expected`, `expected_provenance`, `expected_tool`, `verification` and `checked_by`. |
+| `eval_set.json` | 34 hand-checked test cases, all real: A2 = 16 S3 table columns (12 from the 2021-22 vector-outline/OCR pages, 4 from 2024-25), A3 = 6 S6 society rows + 6 S5 scheme items, A1 = 6 S2 price cells (S2/S5 pages saved from India on 2026-11-27). Each case has `expected`, `expected_provenance`, `expected_tool`, `verification` and `checked_by`. |
 | `build_eval_set.py` | Writes `eval_set.json`. Expected values are typed in by hand (from page renders + summary tables); only the model input text is read from the PDF. |
 | `verify_ground_truth.py` | Re-checks every S3 expected value against the report's own 5-year summary page and the region-sum rule. |
 | `qlora_train.jsonl` | 66 table-to-JSON training examples from the text-layer reports 2020-21, 2022-23, 2023-24 (QLoRA notebook). |
@@ -18,7 +18,9 @@ python eval/check_overlap.py         # OK: zero overlap
 python eval/run_eval.py              # metrics -> eval/results_*.{json,csv}
 ```
 
-Honest reading of the numbers: the deterministic pipeline scores F1 = 1.000 on these 28 cases
-after the S6 `reg_no` fix (it was 0.875 for A3 before the fix, see
-`docs/extraction_errors.md` E1). n is small (136 fields); A1 and the S5 part of A3 use synthetic
-fixtures, so they prove parser logic, not live-page coverage.
+Honest reading of the numbers: the deterministic pipeline scores F1 = 1.000 on these 34 cases
+(158 fields) after the S6 `reg_no` fix (A3 was 0.875 before it, `docs/extraction_errors.md` E1) and
+the S2/S5 live-page fixes (F1-F11; S5 loaded 0 rows before them). n is still small. The A2 `model_input`
+texts are frozen from the first (Linux) OCR run so the QLoRA notebook results stay comparable.
+S8 has no cases: its host was unreachable when the corpus was fetched (A3 in the errors doc).
+`fixtures/` is kept for the unit tests only.

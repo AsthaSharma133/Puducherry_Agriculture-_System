@@ -1,8 +1,8 @@
 {
   "eval_set": "eval/eval_set.json",
-  "n_cases": 28,
-  "n_real_cases": 22,
-  "n_synthetic_cases": 6,
+  "n_cases": 34,
+  "n_real_cases": 34,
+  "n_synthetic_cases": 0,
   "train_test_overlap": {
     "train_keys": 330,
     "test_keys": 80,
@@ -20,9 +20,9 @@
   "by_agent": [
     {
       "agent": "A1",
-      "n_cases": 4,
-      "n_fields": 8,
-      "tp": 8,
+      "n_cases": 6,
+      "n_fields": 12,
+      "tp": 12,
       "fp": 0,
       "fn": 0,
       "precision": 1.0,
@@ -33,7 +33,7 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 1,
-      "avg_latency_s_per_document": 0.002
+      "avg_latency_s_per_document": 0.012
     },
     {
       "agent": "A2",
@@ -50,13 +50,13 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 5,
-      "avg_latency_s_per_document": 0.429
+      "avg_latency_s_per_document": 0.249
     },
     {
       "agent": "A3",
-      "n_cases": 8,
-      "n_fields": 48,
-      "tp": 48,
+      "n_cases": 12,
+      "n_fields": 66,
+      "tp": 66,
       "fp": 0,
       "fn": 0,
       "precision": 1.0,
@@ -67,12 +67,12 @@
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
       "documents": 2,
-      "avg_latency_s_per_document": 0.028
+      "avg_latency_s_per_document": 0.02
     },
     {
       "agent": "MACRO",
-      "n_cases": 28,
-      "n_fields": 136,
+      "n_cases": 34,
+      "n_fields": 158,
       "precision": 1.0,
       "recall": 1.0,
       "f1": 1.0,
@@ -80,7 +80,7 @@
       "provenance_accuracy": 1.0,
       "tool_selection_accuracy": 1.0,
       "task_completion_rate": 1.0,
-      "avg_latency_s_per_document": 0.153
+      "avg_latency_s_per_document": 0.0937
     }
   ],
   "automation": {
@@ -88,22 +88,22 @@
     "eval_inputs_fully_automatic": 8,
     "automation_rate_eval_inputs": 1.0,
     "corpus_fetch_attempted": 21,
-    "corpus_fetch_ok": 6,
-    "automation_rate_corpus_fetch": 0.2857,
-    "note": "corpus fetch failures are hosts that reset connections from the build machine (S2, S5, S8); they work from a network in India"
+    "corpus_fetch_ok": 8,
+    "automation_rate_corpus_fetch": 0.381,
+    "note": "all corpus fetch failures are S8: agritech.tnau.ac.in was unreachable (TCP connect timeout) even from India on 2026-11-27 - HOST_UNREACHABLE"
   },
   "retries": {
     "eval_run": 0,
     "latest_pipeline_run": {
-      "run_id": "20261126T202201Z-21063a",
+      "run_id": "20261127T052632Z-cda3e4",
       "retries": 0
     }
   },
   "latency_s_per_document": {
-    "S3": 0.429,
-    "S6": 0.054,
-    "S2": 0.002,
-    "S5": 0.001
+    "S3": 0.249,
+    "S6": 0.029,
+    "S2": 0.012,
+    "S5": 0.011
   },
   "latency_note": "S3 OCR results are cached in data/interim/ocr; a cold first run OCRs 54 pages (~2 minutes)",
   "error_counts": {
@@ -116,12 +116,12 @@
       "network_geo_block": 0
     },
     "issues_logged_during_eval": {
-      "OCR": 43,
+      "OCR": 44,
       "layout": 0,
       "unit": 1,
       "location_name": 0
     },
-    "network_geo_block_fetch_failures": 15
+    "network_geo_block_fetch_failures": 13
   },
   "failure_snippets": [
     {

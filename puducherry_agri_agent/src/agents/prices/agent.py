@@ -20,6 +20,19 @@ from ..base import Agent, AgentResult, InputMissing
 
 YEAR_COL = re.compile(r"^(20\d{2})\s*[-–]\s*(\d{2})$")
 VARIETY = re.compile(r"^(.*?)[\s\-]+(I{1,3}|IV)$")
+COLUMN_NUMBER = re.compile(r"^\d+\.?$")       # the live page has a '1. 2. 3. ...' column-number row
+DITTO = {",,", "„", '"', "do", "-do-", "do."}   # 'same unit as the row above'
+
+
+def split_label(label: str) -> tuple[str, str]:
+    """'Paddy - I sort' -> ('Paddy', 'I'); 'Onion - Dindigul' -> ('Onion', 'Dindigul');
+    'Paddy I' -> ('Paddy', 'I'); 'Ragi' -> ('Ragi', '')."""
+    if " - " in label:
+        commodity, variety = label.split(" - ", 1)
+        variety = re.sub(r"\s+sort$", "", variety.strip(), flags=re.I)
+        return commodity.strip(), variety
+    m = VARIETY.match(label)
+    return (m.group(1).strip(), m.group(2)) if m else (label, "")
 
 
 class PriceAgent(Agent):
@@ -52,13 +65,18 @@ def parse_s2(path, prov) -> AgentResult:
         years = {j: c for j, c in enumerate(header) if YEAR_COL.match(c)}
         name_j = next((j for j, c in enumerate(header) if re.search(r"commodit|variet", c, re.I)), 1)
         unit_j = next((j for j, c in enumerate(header) if re.search(r"unit", c, re.I)), None)
+        last_unit = ""
         for r_i, r in enumerate(grid[hdr_i + 1:], start=hdr_i + 2):
             if len(r) < len(header) or not r[name_j]:
                 continue
             label = r[name_j]
-            m = VARIETY.match(label)
-            commodity, variety = (m.group(1).strip(), m.group(2)) if m else (label, "")
-            unit_raw = r[unit_j] if unit_j is not None else ""
+            if COLUMN_NUMBER.match(label):
+                continue  # '1. 2. 3. ...' column-number row, not a commodity
+            commodity, variety = split_label(label)
+            unit_raw = r[unit_j].strip() if unit_j is not None else ""
+            if unit_raw.lower() in DITTO:
+                unit_raw = last_unit  # ',,' = same unit as the row above
+            last_unit = unit_raw
             for j, period in years.items():
                 val, note = to_number(r[j])
                 where = f"table {t_i + 1} row {r_i} col {period}"
